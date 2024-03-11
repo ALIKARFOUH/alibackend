@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:namer_app/component/menubar.dart';
+import 'package:namer_app/component/menulist.dart';
 
 
 class Pagemenu extends StatelessWidget {
@@ -44,31 +45,12 @@ class Pagemenu extends StatelessWidget {
             ),
             SizedBox(height:50),
              Container(
-              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(30)),
              width:350,
              height: 450,
              margin: EdgeInsets.only(top: 10),
              // Add another container with a different background color
              child: Center(
-                child:const ColoredBox(
-  color: Colors.white,
-  child: Material(
-    child: ListTile(
-      title: Text('Menu'),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Subtitle 1'),
-          Text('Subtitle 2'),
-           Text('Subtitle 1'),
-          Text('Subtitle 2'),
-           Text('Subtitle 1'),
-          Text('Subtitle 2'),
-        ],
-      ),
-  ),
- )
-              ),
+                child: Menulist()
            ),
         )],
         ),

@@ -5,7 +5,7 @@ class ElementBase extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(  
       
-        backgroundColor: Colors.deepPurple[400],
+        backgroundColor:  Color(0xFFE8DCCE),
       ),
       body: Stack( alignment: Alignment.bottomCenter,children: [
       Column(
@@ -17,7 +17,7 @@ class ElementBase extends StatelessWidget {
          
           Container(
             height: 50,
-            color: Colors.deepPurple[400],
+            color:Color(0xFFE8DCCE),  
           ),
         ],
       ),

@@ -6,7 +6,7 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(  
       
-        backgroundColor: Colors.deepPurple[400],
+        backgroundColor: Colors.deepPurple[400], 
       ),
       body: Column(
         children: [

@@ -9,7 +9,7 @@ class Menubar extends StatelessWidget {
     
      return BottomNavigationBar(
 
-        backgroundColor: Colors.deepPurple[400],
+        backgroundColor:Colors.deepPurple[400], 
        
         //when you select the icon color
         unselectedIconTheme: IconThemeData(color: Colors.white),
