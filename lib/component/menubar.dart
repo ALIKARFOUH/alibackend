@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 class Menubar extends StatelessWidget {
   final int currentIndex;
   const Menubar ({Key? key, required this.currentIndex}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
+    
      return BottomNavigationBar(
 
         backgroundColor: Colors.deepPurple[400],
-        selectedIconTheme: IconThemeData(color: Color.fromARGB(255, 246, 148, 62)), //when you select the icon color
-        unselectedIconTheme: IconThemeData(color: Colors.white), //when you unselect the icon color
+       
+        //when you select the icon color
+        unselectedIconTheme: IconThemeData(color: Colors.white),
+        selectedIconTheme: IconThemeData(color: Color.fromARGB(255, 246, 148, 62)), //when you unselect the icon color
         selectedItemColor: Color.fromARGB(255, 246, 148, 62), //when you select the icon text color
         unselectedItemColor: Colors.white, //when you unselect the icon text color
         items: const <BottomNavigationBarItem>[
@@ -28,7 +31,8 @@ class Menubar extends StatelessWidget {
           ),
         ],
         currentIndex: 0,
-        onTap: (index){
+        onTap: (index){ 
+    
   // Check if the clicked index is the same as the current index
   if (index == currentIndex) {
     return; // Do nothing if the indexes are the same
@@ -36,12 +40,16 @@ class Menubar extends StatelessWidget {
 
   switch (index) {
     case 0:
+      
       Navigator.pushReplacementNamed(context, '/homepage');
       break;
     case 1:
+       
+     
       Navigator.pushReplacementNamed(context, '/addads');
       break;
     case 2:
+     
       Navigator.pushReplacementNamed(context,  '/menu');
       break;
     default:

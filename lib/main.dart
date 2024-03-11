@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:namer_app/myapp/addadds.dart';
 import 'package:namer_app/myapp/homepage.dart';
 import 'package:namer_app/myapp/login.dart';
-import 'package:namer_app/myapp/menupage.dart';
+import 'package:namer_app/myapp/pagemenu.dart';
 
 
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/Login': (context) => Login(),
         '/homepage':(context) => Homepage(),
-        '/menu': (context) =>Menu_page(),
+        '/menu': (context) =>Pagemenu(),
         '/addads':(context) => Addadds(),
       },
     );
