@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/component/spacedItemsList.dart';
 import 'package:namer_app/component/menubar.dart';
-import 'package:namer_app/component/menulist.dart';
+
 
 
 class Pagemenu extends StatelessWidget {
@@ -16,10 +17,15 @@ class Pagemenu extends StatelessWidget {
       ),
       backgroundColor: Color(0xFFE8DCCE),
       body: Container(
+      width: double.infinity,
+      height: screenHeight ,
         alignment: Alignment.center,
-        decoration: BoxDecoration(color: Colors.deepPurple[400]),
-       width: double.infinity,
-       height: screenHeight ,
+        decoration: BoxDecoration(color: Colors.deepPurple[400],gradient: LinearGradient(begin: Alignment.topCenter,end:  Alignment.bottomCenter, colors: [
+        Colors.deepPurple[400]!,
+        Color(0xFFE8DCCE),
+      ],
+      stops: [0.5, 0.5],),
+  ), // Equal stops to divide the colors evenly
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,14 +51,19 @@ class Pagemenu extends StatelessWidget {
             ),
             SizedBox(height:50),
              Container(
-             width:350,
-             height: 450,
-             margin: EdgeInsets.only(top: 10),
-             // Add another container with a different background color
-             child: Center(
-                child: Menulist()
-           ),
-        )],
+  width: 400,
+  height: 450,
+  margin: EdgeInsets.only(top: 10),
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(20), // Set the border radius here
+    child: Container(
+      color: Colors.white.withOpacity(0.8),
+      child: Center(
+        child: SpacedItemsList(),
+      ),
+    ),
+  ),
+),],
         ),
         
       ),
