@@ -4,7 +4,8 @@ class CustomBox extends StatelessWidget {
   final String text;
   final IconData icon;
 
-  const CustomBox({Key? key, required this.text, required this.icon}) : super(key: key);
+  const CustomBox({Key? key, required this.text, required this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

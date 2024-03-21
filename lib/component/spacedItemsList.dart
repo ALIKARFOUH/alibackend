@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:namer_app/component/detailpage.dart';
 import 'package:namer_app/component/custombox.dart';
 import 'package:namer_app/menupages/Editprofile.dart';
 import 'package:namer_app/menupages/activationdisplay.dart';
@@ -41,9 +40,7 @@ class SpacedItemsList extends StatelessWidget {
                   case 'Edit Profile':
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) =>Editprofile()
-                      ),
+                      MaterialPageRoute(builder: (context) => Editprofile()),
                     );
                     break;
                   case 'Activate Displays':
@@ -54,36 +51,30 @@ class SpacedItemsList extends StatelessWidget {
                       ),
                     );
                     break;
-                     case 'Check connected devices':
+                  case 'Check connected devices':
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>Checkconnectedevices()
-                      ),
+                          builder: (context) => Checkconnectedevices()),
                     );
                     break;
-                    case 'Upload historique':
+                  case 'Upload historique':
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>Uploadhistorique()
-                      ),
+                          builder: (context) => Uploadhistorique()),
                     );
                     break;
-                    case 'Settings':
+                  case 'Settings':
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) =>Setingspage()
-                      ),
+                      MaterialPageRoute(builder: (context) => Setingspage()),
                     );
                     break;
-                    case 'Logout':
+                  case 'Logout':
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) =>Login()
-                      ),
+                      MaterialPageRoute(builder: (context) => Login()),
                     );
                     break;
                   // Add cases for other items here
@@ -103,6 +94,3 @@ class SpacedItemsList extends StatelessWidget {
     );
   }
 }
-
-
-
