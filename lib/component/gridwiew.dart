@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:namer_app/component/Grid_Item.dart';
+import 'package:namer_app/data_adds/add_from_galerie.dart';
 import 'package:namer_app/menupages/Galerie.dart';
 
 class GridViewExample extends StatelessWidget {
@@ -24,9 +25,11 @@ class GridViewExample extends StatelessWidget {
             GridItem(
                 text: 'add video',
                 icon: Icons.play_circle_fill,
-                destination: Galerie()),
+                destination: AddFromGallery()),
             GridItem(
-                text: 'add image', icon: Icons.image, destination: Galerie()),
+                text: 'add image',
+                icon: Icons.image,
+                destination: AddFromGallery()),
             GridItem(
                 text: 'add sound',
                 icon: Icons.volume_up,

@@ -23,6 +23,8 @@ dependencies:
   firebase_core: ^2.27.1
   firebase_ui_firestore: ^1.6.2
   flutter_signin_button: ^2.0.0
+  image_picker: ^1.0.7
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:
