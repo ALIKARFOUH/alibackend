@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  
+
   english_words: ^4.0.0
   provider: ^6.0.0
   firebase_auth: ^4.17.9
@@ -38,6 +40,9 @@ flutter:
   - lib/images/image2.jpg
   - lib/images/image3.jpg
   - lib/images/image4.jpg
+
+
+
   
 
   

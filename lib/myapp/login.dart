@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:namer_app/myapp/createacc.dart';
-import 'package:namer_app/myapp/forgotpassword.dart';
-import 'package:namer_app/myapp/homepage.dart';
+
 
 class Login extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -77,10 +75,8 @@ class Login extends StatelessWidget {
                       password: password,
                     );
                     if (userCredential.user != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Homepage()),
-                      );
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushReplacementNamed(context, '/home');
                     }
                   } catch (e) {
                     print(e);
@@ -99,14 +95,7 @@ class Login extends StatelessWidget {
               SizedBox(width: 10), // boxe d'espace
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Homepage()),
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ForgotPassword()),
-                  );
+                Navigator.pushReplacementNamed(context, '/forget');
                 },
                 child: Text(
                   'forgot password', // preparer buttom de forget password
@@ -119,10 +108,7 @@ class Login extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Createacc()),
-              );
+              Navigator.pushReplacementNamed(context, '/create');
             },
             child: Text(
               'dont have an account ' // preparer butttom dont have account
