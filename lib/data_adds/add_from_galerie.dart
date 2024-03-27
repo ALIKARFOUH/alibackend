@@ -62,9 +62,11 @@ class _AddFromGalleryState extends State<AddFromGallery> {
         title: Text('Add Media'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
             _imageFile == null
                 ? Text('No image selected.')
                 : Stack(
@@ -85,22 +87,42 @@ class _AddFromGalleryState extends State<AddFromGallery> {
               onPressed: _getImage,
               child: Text('Select Image'),
             ),
-            TextField(
-              controller: _imageUrlController,
-              decoration: InputDecoration(labelText: 'Enter Image URL'),
-              onChanged: (value) {
-                setState(() {
-                  _imageUrl = value;
-                });
-              },
-            ),
-            ElevatedButton(
-              onPressed: _uploadImage,
-              child: Text('Upload Image'),
-            ),
-          ],
+            Container(
+  decoration: BoxDecoration(
+    border: Border(bottom: BorderSide(color: Colors.transparent)),
+  ),
+  child: Row(
+    children: [
+      Expanded(
+        child: TextField(
+          controller: _imageUrlController,
+          decoration: InputDecoration(labelText: 'Enter Image URL'),
+          onChanged: (value) {
+            setState(() {
+              _imageUrl = value;
+            });
+          },
         ),
       ),
-    );
+      
+     
+       ],
+                  ),
+                ),
+              ],
+            ),
+      Positioned(
+              top:700,
+              right: 10,
+              child: IconButton(
+                icon: Icon(Icons.arrow_forward_ios),
+                onPressed:(){_uploadImage();
+                 print('Image uploaded'); },),              
+  ),
+    ],
+  ),
+),
+      );
+          
   }
 }
