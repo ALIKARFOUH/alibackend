@@ -33,11 +33,11 @@ class Resetpassword extends StatelessWidget {
                     .trim(); // Update the email variable when the user enters text
               },
               decoration: InputDecoration(
-                hintText: 'Please enter the mail here',
-                labelText: 'mail field',
+                hintText: 'Please enter your password here here',
+                labelText: 'password  field',
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                prefixIcon: Icon(Icons.mail),
+                prefixIcon: Icon(Icons.lock),
               ),
             ),
           ),
@@ -45,12 +45,12 @@ class Resetpassword extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Please confirm the mail here',
-                labelText: 'mail field',
+               decoration: InputDecoration(
+                hintText: 'Please enter your password here here',
+                labelText: 'password  field',
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                prefixIcon: Icon(Icons.mail),
+                prefixIcon: Icon(Icons.lock),
               ),
             ),
           ),
