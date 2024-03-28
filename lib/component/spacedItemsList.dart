@@ -35,7 +35,7 @@ class SpacedItemsList extends StatelessWidget {
           itemCount: items.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () {
+              onTap: () async {
                 switch (items[index]['text']) {
                   case 'Edit Profile':
                     Navigator.push(
@@ -71,7 +71,10 @@ class SpacedItemsList extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => Setingspage()),
                     );
                     break;
-                  case 'Logout':
+                  case 'Log out': // Corrected the text to match the item in the list
+                    // Déconnexion de l'utilisateur
+
+                    // Redirection vers l'écran de connexion
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Login()),
