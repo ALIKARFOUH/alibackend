@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:namer_app/component/checkzone.dart/grid_itemzone.dart';
-import 'package:namer_app/data_adds/add_from_galerie.dart';
+
 import 'package:namer_app/menupages/Galerie.dart';
 
 class GridViewzone extends StatelessWidget {

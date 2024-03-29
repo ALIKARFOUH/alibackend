@@ -25,11 +25,11 @@ class GridViewExample extends StatelessWidget {
             GridItem(
                 text: 'add video',
                 icon: Icons.play_circle_fill,
-                destination: AddFromGallery()),
+                destination: AddFromGalleryim()),
             GridItem(
                 text: 'add image',
                 icon: Icons.image,
-                destination: AddFromGallery()),
+                destination: AddFromGalleryim()),
             GridItem(
                 text: 'add sound',
                 icon: Icons.volume_up,

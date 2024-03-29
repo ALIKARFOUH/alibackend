@@ -4,12 +4,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
-class AddFromGallery extends StatefulWidget {
+class AddFromGalleryim extends StatefulWidget {
   @override
   _AddFromGalleryState createState() => _AddFromGalleryState();
 }
 
-class _AddFromGalleryState extends State<AddFromGallery> {
+class _AddFromGalleryState extends State<AddFromGalleryim> {
   File? _imageFile;
   String? _imageUrl;
   final _imageUrlController = TextEditingController();
@@ -117,7 +117,12 @@ class _AddFromGalleryState extends State<AddFromGallery> {
               child: IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
                 onPressed:(){_uploadImage();
-                 print('Image uploaded'); },),              
+                 print('Image uploaded'); 
+                 Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddFromGalleryim()),
+              );
+                 },),              
   ),
     ],
   ),

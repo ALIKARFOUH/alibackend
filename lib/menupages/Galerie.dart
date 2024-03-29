@@ -14,7 +14,7 @@ class Galerie extends StatelessWidget {
               // Appelez la fonction _getImage() à partir de AddFromGallery.dart
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddFromGallery()),
+                MaterialPageRoute(builder: (context) => AddFromGalleryim()),
               );
             },
           ),
