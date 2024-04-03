@@ -7,7 +7,7 @@ import 'package:namer_app/menupages/setingspage.dart';
 import 'package:namer_app/menupages/uploadhistorique.dart';
 import 'package:namer_app/myapp/login.dart';
 
-                         //applysinglechild scrollview
+//applysinglechild scrollview
 
 class SpacedItemsList extends StatelessWidget {
   const SpacedItemsList({Key? key}) : super(key: key);
@@ -60,8 +60,7 @@ class SpacedItemsList extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Checkconnectedevices()
-                        ),
+                            builder: (context) => Checkconnectedevices()),
                       );
                       break;
                     case 'Upload historique':
@@ -81,12 +80,7 @@ class SpacedItemsList extends StatelessWidget {
                       );
                       break;
                     case 'Log out':
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Login(),
-                        ),
-                      );
+                      Navigator.pushReplacementNamed(context, '/Login');
                       break;
                     // Add cases for other items here
                     default:

@@ -65,7 +65,7 @@ class _ConfigurationState extends State<Configuration> {
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
               ),
-              items: <String>['Man', 'Woman', '--']
+              items: <String>['Man', 'Woman', 'Both', '--']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -89,8 +89,16 @@ class _ConfigurationState extends State<Configuration> {
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
               ),
-              items: <String>['18-30', '31-45', '46-60', '60+', '--']
-                  .map<DropdownMenuItem<String>>((String value) {
+              items: <String>[
+                '0-12',
+                '12-18',
+                '18-25',
+                '25-35',
+                '35-45',
+                '45-55',
+                '+55',
+                '--'
+              ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),

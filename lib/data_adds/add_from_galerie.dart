@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:namer_app/data_adds/configuration.dart';
 
 class AddFromGalleryim extends StatefulWidget {
   @override
@@ -66,68 +67,69 @@ class _AddFromGalleryState extends State<AddFromGalleryim> {
           children: <Widget>[
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-            _imageFile == null
-                ? Text('No image selected.')
-                : Stack(
-                    alignment: AlignmentDirectional.center,
+              children: <Widget>[
+                _imageFile == null
+                    ? Text('No image selected.')
+                    : Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Image.file(_imageFile!),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: _deleteImage,
+                            ),
+                          ),
+                        ],
+                      ),
+                ElevatedButton(
+                  onPressed: _getImage,
+                  child: Text('Select Image'),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border:
+                        Border(bottom: BorderSide(color: Colors.transparent)),
+                  ),
+                  child: Row(
                     children: [
-                      Image.file(_imageFile!),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: _deleteImage,
+                      Expanded(
+                        child: TextField(
+                          controller: _imageUrlController,
+                          decoration:
+                              InputDecoration(labelText: 'Enter Image URL'),
+                          onChanged: (value) {
+                            setState(() {
+                              _imageUrl = value;
+                            });
+                          },
                         ),
                       ),
                     ],
                   ),
-            ElevatedButton(
-              onPressed: _getImage,
-              child: Text('Select Image'),
-            ),
-            Container(
-  decoration: BoxDecoration(
-    border: Border(bottom: BorderSide(color: Colors.transparent)),
-  ),
-  child: Row(
-    children: [
-      Expanded(
-        child: TextField(
-          controller: _imageUrlController,
-          decoration: InputDecoration(labelText: 'Enter Image URL'),
-          onChanged: (value) {
-            setState(() {
-              _imageUrl = value;
-            });
-          },
-        ),
-      ),
-      
-     
-       ],
-                  ),
                 ),
               ],
             ),
-      Positioned(
-              top:700,
+            Positioned(
+              top: 700,
               right: 10,
               child: IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
-                onPressed:(){_uploadImage();
-                 print('Image uploaded'); 
-                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddFromGalleryim()),
-              );
-                 },),              
-  ),
-    ],
-  ),
-),
-      );
-          
+                onPressed: () {
+                  _uploadImage();
+                  print('Image uploaded');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Configuration()),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
