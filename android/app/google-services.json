@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "308229101178",
-    "project_id": "appdatadoit",
-    "storage_bucket": "appdatadoit.appspot.com"
+    "project_number": "1023368834165",
+    "project_id": "alinourhen-a890e",
+    "storage_bucket": "alinourhen-a890e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:308229101178:android:23f7a1cebd42fcded18dc3",
+        "mobilesdk_app_id": "1:1023368834165:android:5274e5647824296ca75c3c",
         "android_client_info": {
           "package_name": "com.example.firstly"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDiKKD1IpMguwhpVsRBN0LEIlZbdAZTfng"
+          "current_key": "AIzaSyDlAtpbMgs5FI97Vq7ZyFHw8vIC8EKHGOg"
         }
       ],
       "services": {

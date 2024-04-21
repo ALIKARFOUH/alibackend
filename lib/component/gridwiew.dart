@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:namer_app/component/Grid_Item.dart';
 import 'package:namer_app/data_adds/add_from_galerie.dart';
 import 'package:namer_app/menupages/Galerie.dart';
+import 'package:namer_app/data_adds/Add_video_galerie.dart';
+import 'package:namer_app/myapp/form_details.dart';
 
 class GridViewExample extends StatelessWidget {
   @override
@@ -23,22 +28,49 @@ class GridViewExample extends StatelessWidget {
             // Use the custom GridItem widget for each item
 
             GridItem(
-                text: 'add video',
-                icon: Icons.play_circle_fill,
-                destination: AddFromGallery()),
+              text: 'add video',
+              icon: Icons.play_circle_fill,
+              function: () async {
+                print("get video    ");
+              },
+            ),
             GridItem(
-                text: 'add image',
-                icon: Icons.image,
-                destination: AddFromGallery()),
+              text: 'add image',
+              icon: Icons.image,
+              function: () async {
+                final selectedImage = await _getImage();
+                if (selectedImage != null) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => FormDetails(
+                            file: selectedImage,
+                          ))));
+                }
+              },
+            ),
+
             GridItem(
-                text: 'add sound',
-                icon: Icons.volume_up,
-                destination: Galerie()),
+              text: 'add sound',
+              icon: Icons.volume_up,
+              function: () {},
+            ),
             GridItem(
-                text: 'add display ', icon: Icons.tv, destination: Galerie()),
+              text: 'add display ',
+              icon: Icons.tv,
+              function: () {},
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+Future<File?> _getImage() async {
+  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+  if (pickedFile != null) {
+    return File(pickedFile.path);
+  } else {
+    return null;
   }
 }

@@ -44,13 +44,16 @@ class Menubar extends StatelessWidget {
 
         switch (index) {
           case 0:
-            Navigator.pushReplacementNamed(context, '/homepage');
+            Navigator.pushReplacementNamed(
+                context, '/home'); // Navigate to HomePage
             break;
           case 1:
-            Navigator.pushReplacementNamed(context, '/addads');
+            Navigator.pushReplacementNamed(
+                context, '/addads'); // Navigate to AddAdsPage
             break;
           case 2:
-            Navigator.pushReplacementNamed(context, '/menu');
+            Navigator.pushReplacementNamed(
+                context, '/menu'); // Navigate to MenuPage
             break;
           default:
             break;

@@ -67,4 +67,5 @@ flutter {
 
 dependencies {
     implementation 'com.google.gms:google-services:4.4.1'
+    implementation("com.google.firebase:firebase-storage")
 }

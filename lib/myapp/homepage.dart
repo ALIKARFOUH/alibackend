@@ -1,91 +1,76 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/component/menubar.dart';
+import 'package:namer_app/models/form_model.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
+  @override
+  _HomepageState createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  List<FormModel> data = [];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future<void> getData() async {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection("ads").get();
+
+    setState(() {
+      data = querySnapshot.docs.map((documentSnapshot) {
+        return FormModel.fromJson(documentSnapshot.data());
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage('lib/images/datadoit_logo.jpg'),
-                radius: 20,
-              ),
-              SizedBox(width: 8),
-              // Add your title text here
-            ],
-          ),
-          backgroundColor: Colors.deepPurple[400],
+      appBar: AppBar(
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage('lib/images/datadoit_logo.jpg'),
+              radius: 20,
+            ),
+            SizedBox(width: 8),
+          ],
         ),
-        body: SingleChildScrollView(
-          reverse: true,
-          child: Column(
-            children: [
-              SizedBox(height: 8), // Add some spacing
-              Image.asset(
-                'lib/images/image1.jpg',
-                width: screenWidth,
-                height: screenWidth / 3, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
+        backgroundColor: Colors.deepPurple[400],
+      ),
+      body: data.isNotEmpty
+          ? ListView.separated(
+              itemCount: data.length,
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 15,
               ),
-              SizedBox(height: 4), // Add some spacing
-              Image.asset(
-                'lib/images/image2.jpg',
-                width: screenWidth,
-                height: screenWidth / 2, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 4), // Add some spacing
-              Image.asset(
-                'lib/images/image3.jpg',
-                width: screenWidth,
-                height: screenWidth / 2, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 4), // Add some spacing
-              Image.asset(
-                'lib/images/image4.jpg',
-                width: screenWidth,
-                height: screenWidth / 2, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 4),
-              Image.asset(
-                'lib/images/image1.jpg',
-                width: screenWidth,
-                height: screenWidth / 3, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 4),
-              Image.asset(
-                'lib/images/image2.jpg',
-                width: screenWidth,
-                height: screenWidth / 2, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 4), // Add some spacing
-              Image.asset(
-                'lib/images/image3.jpg',
-                width: screenWidth,
-                height: screenWidth / 2, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 4), // Add some spacing
-              Image.asset(
-                'lib/images/image4.jpg',
-                width: screenWidth,
-                height: screenWidth / 2, // Set the height based on aspect ratio
-                fit: BoxFit.cover,
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: Menubar(
-          currentIndex: 0,
-          selectedIconColor: Color.fromARGB(255, 246, 148, 62),
-        ));
+              itemBuilder: (BuildContext context, int index) {
+                return Row(
+                  children: [
+                    Image.network(
+                      data[index].url,
+                      height: 100,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Text(data[index].description),
+                  ],
+                );
+              },
+            )
+          : Center(child: CircularProgressIndicator()),
+      bottomNavigationBar: Menubar(
+        currentIndex: 0,
+        selectedIconColor: Color.fromARGB(255, 246, 148, 62),
+      ),
+    );
   }
 }
