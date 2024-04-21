@@ -90,16 +90,21 @@ class Createacc extends StatelessWidget {
                   );
                   BuildContext currentContext = context;
                   if (userCredential.user != null) {
-                    print("ok bb");
+                   
                     Navigator.push(
                       // ignore: use_build_context_synchronously
                       currentContext,
                       MaterialPageRoute(builder: (context) => Homepage()),
+                      
                     );
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Account is created successfulyy ')));
                     // Navigation après la création de compte réussie
                   }
                 } catch (e) {
                   print(e);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Email invalid ')));
                 }
               },
               style: ButtonStyle(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/component/awsomedialog.dart';
 import 'package:namer_app/component/custombox.dart';
 import 'package:namer_app/menupages/Editprofile.dart';
 import 'package:namer_app/menupages/activationdisplay.dart';
 import 'package:namer_app/menupages/checkdevices.dart';
 import 'package:namer_app/menupages/setingspage.dart';
 import 'package:namer_app/menupages/uploadhistorique.dart';
-import 'package:namer_app/myapp/login.dart';
 
 //applysinglechild scrollview
 
@@ -81,6 +81,7 @@ class SpacedItemsList extends StatelessWidget {
                       break;
                     case 'Log out':
                       Navigator.pushReplacementNamed(context, '/Login');
+                      Awsomedialog();
                       break;
                     // Add cases for other items here
                     default:

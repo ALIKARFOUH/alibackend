@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  awesome_dialog: ^3.2.0
+
   
 
   english_words: ^4.0.0
