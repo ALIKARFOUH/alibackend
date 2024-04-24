@@ -1,12 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:namer_app/component/Grid_Item.dart';
-import 'package:namer_app/data_adds/add_from_galerie.dart';
-import 'package:namer_app/menupages/Galerie.dart';
-import 'package:namer_app/data_adds/Add_video_galerie.dart';
-import 'package:namer_app/myapp/form_details.dart';
+import 'package:namer_app/myapp/Form-details2.dart';
 
 class GridViewExample extends StatelessWidget {
   @override
@@ -31,7 +27,13 @@ class GridViewExample extends StatelessWidget {
               text: 'add video',
               icon: Icons.play_circle_fill,
               function: () async {
-                print("get video    ");
+                final selectedVideo = await _getVideo();
+                if (selectedVideo != null) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => FormDetails2(
+                            file: selectedVideo,
+                          ))));
+                }
               },
             ),
             GridItem(
@@ -41,7 +43,7 @@ class GridViewExample extends StatelessWidget {
                 final selectedImage = await _getImage();
                 if (selectedImage != null) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => FormDetails(
+                      builder: ((context) => FormDetails2(
                             file: selectedImage,
                           ))));
                 }
@@ -67,6 +69,16 @@ class GridViewExample extends StatelessWidget {
 
 Future<File?> _getImage() async {
   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+  if (pickedFile != null) {
+    return File(pickedFile.path);
+  } else {
+    return null;
+  }
+}
+
+Future<File?> _getVideo() async {
+  final pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
 
   if (pickedFile != null) {
     return File(pickedFile.path);

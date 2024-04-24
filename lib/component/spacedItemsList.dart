@@ -5,7 +5,6 @@ import 'package:namer_app/menupages/activationdisplay.dart';
 import 'package:namer_app/menupages/checkdevices.dart';
 import 'package:namer_app/menupages/setingspage.dart';
 import 'package:namer_app/menupages/uploadhistorique.dart';
-import 'package:namer_app/myapp/login.dart';
 
 //applysinglechild scrollview
 

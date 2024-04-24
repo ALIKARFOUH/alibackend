@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart' as http;
+import 'package:video_player/video_player.dart';
 
 class AddVideoGallery extends StatefulWidget {
   @override
@@ -10,17 +10,28 @@ class AddVideoGallery extends StatefulWidget {
 }
 
 class _AddVideoGalleryState extends State<AddVideoGallery> {
-  File? _videoFile;
+  late File _videoFile;
   String? _videoUrl;
   final _videoUrlController = TextEditingController();
   final picker = ImagePicker();
+  late VideoPlayerController _controller;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   Future<void> _getVideo() async {
     final pickedFile = await picker.pickVideo(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
         _videoFile = File(pickedFile.path);
-        _videoUrl = null; // Reset videoUrl when new video is picked
+        _videoUrl = null;
+        _controller = VideoPlayerController.file(_videoFile)
+          ..initialize().then((_) {
+            setState(() {});
+          });
       } else {
         print('No video selected.');
       }
@@ -29,20 +40,37 @@ class _AddVideoGalleryState extends State<AddVideoGallery> {
 
   Future<void> _uploadVideo() async {
     if (_videoFile != null) {
-      Reference storageReference = FirebaseStorage.instance
-          .ref()
-          .child('videos/${DateTime.now().millisecondsSinceEpoch}');
-      UploadTask uploadTask = storageReference.putFile(_videoFile!);
-      await uploadTask.whenComplete(() => setState(() {}));
-    } else if (_videoUrl != null && _videoUrl!.isNotEmpty) {
-      // Handle video URL upload if needed
+      try {
+        print('Début du téléchargement de video');
+        FirebaseStorage firebaseStorage =
+            FirebaseStorage.instanceFor(bucket: 'alinourhen-a890e.appspot.com');
+        Reference storageReference = firebaseStorage
+            .ref()
+            .child('file/${DateTime.now().millisecondsSinceEpoch}');
+        TaskSnapshot snapshot = await storageReference.putFile(_videoFile);
+        String downloadUrl = await snapshot.ref.getDownloadURL();
+        setState(() {
+          _videoUrl = downloadUrl;
+          print(downloadUrl);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('video téléchargée avec succès')));
+        });
+        Navigator.pushReplacementNamed(context, 'form_details2');
+      } catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Erreur lors du téléchargement de video')));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Aucune video sélectionnée')));
     }
   }
 
   Future<void> _deleteVideo() async {
     if (_videoFile == null) return;
     setState(() {
-      _videoFile = null;
+      _videoFile = File('');
     });
   }
 

@@ -18,14 +18,21 @@ class _HomepageState extends State<Homepage> {
   }
 
   Future<void> getData() async {
-    final querySnapshot =
-        await FirebaseFirestore.instance.collection("ads").get();
+    try {
+      final querySnapshot =
+          await FirebaseFirestore.instance.collection("ads").get();
 
-    setState(() {
-      data = querySnapshot.docs.map((documentSnapshot) {
-        return FormModel.fromJson(documentSnapshot.data());
-      }).toList();
-    });
+      setState(() {
+        data = querySnapshot.docs.map((documentSnapshot) {
+          return FormModel.fromJson(documentSnapshot.data());
+        }).toList();
+      });
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Erreur lors du téléchargement '),
+      ));
+    }
   }
 
   @override

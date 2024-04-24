@@ -89,8 +89,8 @@ class Createacc extends StatelessWidget {
                     password: password,
                   );
                   BuildContext currentContext = context;
-                  if (userCredential.user != null) {
-                    print("ok bb");
+                  if (userCredential.user != null &&
+                      userCredential.user!.emailVerified) {
                     Navigator.push(
                       // ignore: use_build_context_synchronously
                       currentContext,

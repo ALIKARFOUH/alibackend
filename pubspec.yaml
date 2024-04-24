@@ -30,6 +30,8 @@ dependencies:
   localstorage: ^5.0.0
   firebase_database: ^10.5.2
   mime_type: ^1.0.0
+  video_player: ^2.8.6
+  firebase_app_check: ^0.2.2+2
 
 dev_dependencies:
   flutter_test:

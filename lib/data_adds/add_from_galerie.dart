@@ -1,4 +1,3 @@
-// Importations
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,7 +72,7 @@ class _AddFromGalleryState extends State<AddFromGallery> {
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Image téléchargée avec succès')));
           });
-          Navigator.pushReplacementNamed(context, '/config');
+          Navigator.pushReplacementNamed(context, 'form_details');
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Erreur lors de la conversion de l\'image')));

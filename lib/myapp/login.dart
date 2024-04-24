@@ -73,7 +73,8 @@ class Login extends StatelessWidget {
                         email: email,
                         password: password,
                       );
-                      if (userCredential.user != null) {
+                      if (userCredential.user != null &&
+                          userCredential.user!.emailVerified) {
                         Navigator.pushReplacementNamed(context, '/home');
                       }
                     } catch (e) {
