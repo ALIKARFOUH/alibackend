@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:namer_app/component/checkzone.dart/grid_itemzone.dart';
-
 import 'package:namer_app/menupages/Galerie.dart';
 
 class GridViewzone extends StatelessWidget {
@@ -21,16 +19,34 @@ class GridViewzone extends StatelessWidget {
         child: GridView.count(
           crossAxisCount: 2, // Number of columns
           children: [
-       GridItemzone(image:Image.asset('lib/images/image1.jpg'), video:null , destination:Galerie()), 
-       GridItemzone(image:Image.asset('lib/images/image1.jpg'), video:null , destination:Galerie()), 
-       GridItemzone(image:Image.asset('lib/images/image1.jpg'), video:null , destination:Galerie()),
-       GridItemzone(image:Image.asset('lib/images/image1.jpg'), video:null , destination:Galerie()), 
-       GridItemzone(image:Image.asset('lib/images/image1.jpg'), video:null , destination:Galerie()), 
-       GridItemzone(image:Image.asset('lib/images/image1.jpg'), video:null , destination:Galerie())     // Use the custom GridItem widget for each item     // Use the custom GridItem widget for each item
-    ],
+            GridItemzone(
+                image: Image.asset('lib/images/image1.jpg'),
+                video: null,
+                destination: Galerie()),
+            GridItemzone(
+                image: Image.asset('lib/images/image1.jpg'),
+                video: null,
+                destination: Galerie()),
+            GridItemzone(
+                image: Image.asset('lib/images/image1.jpg'),
+                video: null,
+                destination: Galerie()),
+            GridItemzone(
+                image: Image.asset('lib/images/image1.jpg'),
+                video: null,
+                destination: Galerie()),
+            GridItemzone(
+                image: Image.asset('lib/images/image1.jpg'),
+                video: null,
+                destination: Galerie()),
+            GridItemzone(
+                image: Image.asset('lib/images/image1.jpg'),
+                video: null,
+                destination:
+                    Galerie()) // Use the custom GridItem widget for each item     // Use the custom GridItem widget for each item
+          ],
         ),
       ),
     );
   }
 }
-

@@ -2,53 +2,92 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:namer_app/data_adds/configuration.dart';
+import 'package:image/image.dart' as image_lib;
 
-class AddFromGalleryim extends StatefulWidget {
+// Classe AddFromGallery
+class AddFromGallery extends StatefulWidget {
   @override
   _AddFromGalleryState createState() => _AddFromGalleryState();
 }
 
-class _AddFromGalleryState extends State<AddFromGalleryim> {
+// État de AddFromGallery
+class _AddFromGalleryState extends State<AddFromGallery> {
+  // Propriétés
   File? _imageFile;
   String? _imageUrl;
   final _imageUrlController = TextEditingController();
   final picker = ImagePicker();
 
+  // Méthode pour obtenir une image depuis la galerie
   Future<void> _getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
         _imageFile = File(pickedFile.path);
-        _imageUrl = null; // Reset imageUrl when new image is picked
+        _imageUrl =
+            null; // Réinitialiser l'URL de l'image lorsque qu'une nouvelle image est sélectionnée
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Aucune image sélectionnée')));
       }
     });
   }
 
+  // Méthode pour transformer l'image en .png ou .jpg
+  Future<File?> _convertImage(File imageFile) async {
+    image_lib.Image image = image_lib.decodeImage(imageFile.readAsBytesSync())!;
+    image_lib.Image convertedImage = image_lib.copyResize(image,
+        width: 500); // Redimensionner l'image si nécessaire
+    File? newImageFile;
+    if (imageFile.path.toLowerCase().endsWith('.png')) {
+      newImageFile = File('${imageFile.path}.png');
+      await newImageFile.writeAsBytes(image_lib.encodePng(convertedImage));
+    } else if (imageFile.path.toLowerCase().endsWith('.jpg') ||
+        imageFile.path.toLowerCase().endsWith('.jpeg')) {
+      newImageFile = File('${imageFile.path}.jpg');
+      await newImageFile.writeAsBytes(image_lib.encodeJpg(convertedImage,
+          quality: 85)); // Définir la qualité de compression pour JPEG
+    }
+    return newImageFile;
+  }
+
+  // Méthode pour télécharger et uploader une image
   Future<void> _uploadImage() async {
     if (_imageFile != null) {
-      Reference storageReference = FirebaseStorage.instance
-          .ref()
-          .child('images/${DateTime.now().millisecondsSinceEpoch}');
-      UploadTask uploadTask = storageReference.putFile(_imageFile!);
-      await uploadTask.whenComplete(() => setState(() {}));
-    } else if (_imageUrl != null && _imageUrl!.isNotEmpty) {
-      http.Response response = await http.get(Uri.parse(_imageUrl!));
-      if (response.statusCode == 200) {
-        _imageFile = File('${_imageUrl.hashCode}.jpg');
-        await _imageFile!.writeAsBytes(response.bodyBytes);
-        Reference storageReference = FirebaseStorage.instance
-            .ref()
-            .child('images/${DateTime.now().millisecondsSinceEpoch}');
-        UploadTask uploadTask = storageReference.putFile(_imageFile!);
-        await uploadTask.whenComplete(() => setState(() {}));
+      try {
+        print('Début du téléchargement de l\'image');
+        File? convertedImage = await _convertImage(_imageFile!);
+        if (convertedImage != null) {
+          FirebaseStorage firebaseStorage = FirebaseStorage.instanceFor(
+              bucket: 'alinourhen-a890e.appspot.com');
+          Reference storageReference = firebaseStorage.ref().child(
+              'Enfant/${DateTime.now().millisecondsSinceEpoch}.${convertedImage.path.split('.').last}');
+          UploadTask uploadTask = storageReference.putFile(convertedImage);
+          TaskSnapshot snapshot = await uploadTask;
+          String downloadUrl = await snapshot.ref.getDownloadURL();
+          setState(() {
+            _imageUrl = downloadUrl;
+            print(downloadUrl);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Image téléchargée avec succès')));
+          });
+          Navigator.pushReplacementNamed(context, 'form_details');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Erreur lors de la conversion de l\'image')));
+        }
+      } catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Erreur lors du téléchargement de l\'image')));
       }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Aucune image sélectionnée')));
     }
   }
 
+  // Méthode pour supprimer l'image sélectionnée
   Future<void> _deleteImage() async {
     if (_imageFile == null) return;
     setState(() {
@@ -60,72 +99,56 @@ class _AddFromGalleryState extends State<AddFromGalleryim> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Media'),
+        title: Text('Ajouter une média'),
       ),
       body: Center(
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _imageFile == null
-                    ? Text('No image selected.')
-                    : Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Image.file(_imageFile!),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: _deleteImage,
-                            ),
-                          ),
-                        ],
-                      ),
-                ElevatedButton(
-                  onPressed: _getImage,
-                  child: Text('Select Image'),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border:
-                        Border(bottom: BorderSide(color: Colors.transparent)),
-                  ),
-                  child: Row(
+            _imageFile == null
+                ? Text('Aucune image sélectionnée.')
+                : Stack(
+                    alignment: AlignmentDirectional.center,
                     children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _imageUrlController,
-                          decoration:
-                              InputDecoration(labelText: 'Enter Image URL'),
-                          onChanged: (value) {
-                            setState(() {
-                              _imageUrl = value;
-                            });
-                          },
+                      Image.file(_imageFile!),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: _deleteImage,
                         ),
                       ),
                     ],
                   ),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: _getImage,
+              child: Text('Sélectionner une image'),
             ),
-            Positioned(
-              top: 700,
-              right: 10,
-              child: IconButton(
-                icon: Icon(Icons.arrow_forward_ios),
-                onPressed: () {
-                  _uploadImage();
-                  print('Image uploaded');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Configuration()),
-                  );
-                },
+            Container(
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.transparent)),
               ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _imageUrlController,
+                      decoration: InputDecoration(
+                          labelText: 'Entrez l\'URL de l\'image'),
+                      onChanged: (value) {
+                        setState(() {
+                          _imageUrl = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward_ios),
+              onPressed: _uploadImage,
             ),
           ],
         ),

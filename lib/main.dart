@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'package:namer_app/data_adds/add_from_galerie.dart';
-import 'package:namer_app/data_adds/configuration.dart';
 import 'package:namer_app/myapp/addadds.dart';
+import 'package:namer_app/myapp/form_details.dart';
 import 'package:namer_app/myapp/createacc.dart';
 import 'package:namer_app/myapp/forgotpassword.dart';
 import 'package:namer_app/myapp/homepage.dart';
@@ -14,10 +12,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
-        apiKey: "AIzaSyDiKKD1IpMguwhpVsRBN0LEIlZbdAZTfng",
-        appId: "1:308229101178:android:23f7a1cebd42fcded18dc3",
-        messagingSenderId: "308229101178",
-        projectId: "appdatadoit"),
+        apiKey: "AIzaSyDlAtpbMgs5FI97Vq7ZyFHw8vIC8EKHGOg",
+        appId: "1:1023368834165:android:5274e5647824296ca75c3c",
+        messagingSenderId: "1023368834165",
+        projectId: "alinourhen-a890e",
+        storageBucket: "alinourhen-a890e.appspot.com"),
   );
   runApp(MyApp());
 }
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Login(),
       title: 'My App',
-      initialRoute: '/',
+      initialRoute: '/addads',
       routes: {
         '/Login': (context) => Login(),
         '/home': (context) => Homepage(),
@@ -36,9 +35,6 @@ class MyApp extends StatelessWidget {
         '/addads': (context) => Addadds(),
         '/forget': (context) => ForgotPassword(),
         '/create': (context) => Createacc(),
-        '/addgalim': (context) => AddFromGalleryim(),
-        '/config': (context) => Configuration(),
-        
       },
     );
   }
