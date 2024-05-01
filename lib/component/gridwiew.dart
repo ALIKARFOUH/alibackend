@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:namer_app/component/Grid_Item.dart';
 import 'package:namer_app/myapp/Form-details2.dart';
+import 'package:namer_app/myapp/Add_Sound.dart';
+import 'package:namer_app/myapp/form_details.dart';
 
 class GridViewExample extends StatelessWidget {
   @override
@@ -43,7 +45,7 @@ class GridViewExample extends StatelessWidget {
                 final selectedImage = await _getImage();
                 if (selectedImage != null) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => FormDetails2(
+                      builder: ((context) => FormDetails(
                             file: selectedImage,
                           ))));
                 }
@@ -51,10 +53,13 @@ class GridViewExample extends StatelessWidget {
             ),
 
             GridItem(
-              text: 'add sound',
-              icon: Icons.volume_up,
-              function: () {},
-            ),
+                text: 'add sound',
+                icon: Icons.volume_up,
+                function: () async {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => AddSound())));
+                }),
+
             GridItem(
               text: 'add display ',
               icon: Icons.tv,
