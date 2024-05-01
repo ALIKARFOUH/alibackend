@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/component/menubar.dart';
 import 'package:namer_app/models/form_model.dart';
+import 'package:namer_app/models/video_model.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   List<FormModel> data = [];
-
+  List<VideoModel> VDdata = [];
   @override
   void initState() {
     getData();
@@ -21,7 +22,6 @@ class _HomepageState extends State<Homepage> {
     try {
       final querySnapshot =
           await FirebaseFirestore.instance.collection("ads").get();
-
       setState(() {
         data = querySnapshot.docs.map((documentSnapshot) {
           return FormModel.fromJson(documentSnapshot.data());

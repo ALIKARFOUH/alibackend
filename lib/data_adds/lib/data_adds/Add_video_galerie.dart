@@ -52,7 +52,6 @@ class _AddVideoGalleryState extends State<AddVideoGallery> {
         setState(() {
           _videoUrl = downloadUrl;
           print(downloadUrl);
-
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('video téléchargée avec succès')));
         });

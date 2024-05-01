@@ -67,7 +67,7 @@ class Createacc extends StatelessWidget {
               },
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Please enter the pasword here  ',
+                hintText: 'Please enter the pasword here ',
                 labelText: 'password field',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -100,6 +100,7 @@ class Createacc extends StatelessWidget {
                   }
                 } catch (e) {
                   print(e);
+                  //mail invalide
                 }
               },
               style: ButtonStyle(

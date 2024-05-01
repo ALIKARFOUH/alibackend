@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image/image.dart' as image_lib;
 
-// Classe AddFromGallery
 class AddFromGallery extends StatefulWidget {
   @override
   _AddFromGalleryState createState() => _AddFromGalleryState();
@@ -24,8 +22,7 @@ class _AddFromGalleryState extends State<AddFromGallery> {
     setState(() {
       if (pickedFile != null) {
         _imageFile = File(pickedFile.path);
-        _imageUrl =
-            null; // Réinitialiser l'URL de l'image lorsque qu'une nouvelle image est sélectionnée
+        _imageUrl = null;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Aucune image sélectionnée')));
@@ -57,26 +54,6 @@ class _AddFromGalleryState extends State<AddFromGallery> {
       try {
         print('Début du téléchargement de l\'image');
         File? convertedImage = await _convertImage(_imageFile!);
-        if (convertedImage != null) {
-          FirebaseStorage firebaseStorage = FirebaseStorage.instanceFor(
-              bucket: 'alinourhen-a890e.appspot.com');
-          Reference storageReference = firebaseStorage.ref().child(
-              'Enfant/${DateTime.now().millisecondsSinceEpoch}.${convertedImage.path.split('.').last}');
-          UploadTask uploadTask = storageReference.putFile(convertedImage);
-          TaskSnapshot snapshot = await uploadTask;
-          String downloadUrl = await snapshot.ref.getDownloadURL();
-          setState(() {
-            _imageUrl = downloadUrl;
-            print(downloadUrl);
-
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Image téléchargée avec succès')));
-          });
-          Navigator.pushReplacementNamed(context, 'form_details');
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Erreur lors de la conversion de l\'image')));
-        }
       } catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Erreur lors du téléchargement de l\'image')));
@@ -87,7 +64,6 @@ class _AddFromGalleryState extends State<AddFromGallery> {
     }
   }
 
-  // Méthode pour supprimer l'image sélectionnée
   Future<void> _deleteImage() async {
     if (_imageFile == null) return;
     setState(() {

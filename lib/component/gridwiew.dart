@@ -1,15 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gallery_picker/views/album_view/selected_media_thumbnail.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:namer_app/component/Grid_Item.dart';
 import 'package:namer_app/myapp/Form-details2.dart';
+import 'package:namer_app/myapp/form_details.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:namer_app/myapp/add_sound.dart';
 
 class GridViewExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Center(
             child: Text(
           'Add section',
@@ -43,7 +46,7 @@ class GridViewExample extends StatelessWidget {
                 final selectedImage = await _getImage();
                 if (selectedImage != null) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => FormDetails2(
+                      builder: ((context) => FormDetails(
                             file: selectedImage,
                           ))));
                 }
@@ -51,10 +54,13 @@ class GridViewExample extends StatelessWidget {
             ),
 
             GridItem(
-              text: 'add sound',
-              icon: Icons.volume_up,
-              function: () {},
-            ),
+                text: 'add sound',
+                icon: Icons.volume_up,
+                function: () async {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => AddSound())));
+                }),
+
             GridItem(
               text: 'add display ',
               icon: Icons.tv,
@@ -86,3 +92,18 @@ Future<File?> _getVideo() async {
     return null;
   }
 }
+
+/*Future<File?> _getAudio() async {
+  final result = await FilePicker.platform.pickFiles(
+    type: FileType.audio,
+    allowMultiple: false,
+  );
+
+  if (result != null) {
+    final audioFile = result.files.single.path;
+    if (audioFile != null) {
+      return File(audioFile);
+    }
+  }
+  return null;
+}*/
