@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:namer_app/component/awsomedialog.dart';
-import 'package:namer_app/component/custombox.dart';
+
 import 'package:namer_app/menupages/Editprofile.dart';
 import 'package:namer_app/menupages/activationdisplay.dart';
 import 'package:namer_app/menupages/checkdevices.dart';
 import 'package:namer_app/menupages/setingspage.dart';
 import 'package:namer_app/menupages/uploadhistorique.dart';
-
-//applysinglechild scrollview
 
 class SpacedItemsList extends StatelessWidget {
   const SpacedItemsList({Key? key}) : super(key: key);
@@ -30,9 +27,7 @@ class SpacedItemsList extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Configuration '),
-        ),
+        appBar: AppBar(),
         body: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
           child: Column(
@@ -81,11 +76,8 @@ class SpacedItemsList extends StatelessWidget {
                       break;
                     case 'Log out':
                       Navigator.pushReplacementNamed(context, '/Login');
-                      Awsomedialog();
                       break;
-                    // Add cases for other items here
                     default:
-                      // Do something if no matching case is found
                       break;
                   }
                 },
@@ -97,6 +89,44 @@ class SpacedItemsList extends StatelessWidget {
             }).toList(),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CustomBox extends StatelessWidget {
+  final String text;
+  final IconData icon;
+
+  const CustomBox({
+    Key? key,
+    required this.text,
+    required this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Color(0xFFE8DCCE).withOpacity(0.5),
+      ),
+      child: Row(
+        children: [
+          Icon(icon),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

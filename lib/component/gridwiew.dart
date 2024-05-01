@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:namer_app/component/Grid_Item.dart';
 import 'package:namer_app/myapp/Form-details2.dart';
+import 'package:namer_app/myapp/form_details.dart';
 
 class GridViewExample extends StatelessWidget {
   @override
@@ -43,7 +44,7 @@ class GridViewExample extends StatelessWidget {
                 final selectedImage = await _getImage();
                 if (selectedImage != null) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => FormDetails2(
+                      builder: ((context) => FormDetails(
                             file: selectedImage,
                           ))));
                 }

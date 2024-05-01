@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/myapp/addadds.dart';
-import 'package:namer_app/myapp/form_details.dart';
+
 import 'package:namer_app/myapp/createacc.dart';
+
 import 'package:namer_app/myapp/forgotpassword.dart';
+
 import 'package:namer_app/myapp/homepage.dart';
 import 'package:namer_app/myapp/login.dart';
 import 'package:namer_app/myapp/pagemenu.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Login(),
       title: 'My App',
-      initialRoute: '/addads',
+      initialRoute: '/home',
       routes: {
         '/Login': (context) => Login(),
         '/home': (context) => Homepage(),
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/addads': (context) => Addadds(),
         '/forget': (context) => ForgotPassword(),
         '/create': (context) => Createacc(),
+        
       },
     );
   }

@@ -1,7 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:namer_app/component/listviewaddsimages.dart';
 import 'package:namer_app/component/menubar.dart';
 import 'package:namer_app/models/form_model.dart';
+import 'package:namer_app/myapp/SliderExample.dart';
+import 'package:namer_app/component/data_service.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -9,36 +11,10 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List<FormModel> data = [];
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
-  Future<void> getData() async {
-    try {
-      final querySnapshot =
-          await FirebaseFirestore.instance.collection("ads").get();
-
-      setState(() {
-        data = querySnapshot.docs.map((documentSnapshot) {
-          return FormModel.fromJson(documentSnapshot.data());
-        }).toList();
-      });
-    } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Erreur lors du téléchargement '),
-      ));
-    }
-  }
-
+  int carouselIndex = 0; // Define carouselIndex
+  final List<FormModel> datadata = [];
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -52,28 +28,121 @@ class _HomepageState extends State<Homepage> {
         ),
         backgroundColor: Colors.deepPurple[400],
       ),
-      body: data.isNotEmpty
-          ? ListView.separated(
-              itemCount: data.length,
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 15,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Center(
+              child: Material(
+                color: Colors.deepPurple[100],
+                elevation: 8,
+                borderRadius: BorderRadius.all(Radius.circular(28)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: InkWell(
+                  splashColor: Colors.deepPurple[100],
+                  onTap: () {},
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Ink.image(
+                        image: AssetImage('lib/images/musiccc.png'),
+                        height: 240,
+                        width: 385,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        'Play music',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Color.fromARGB(255, 246, 148, 62),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              itemBuilder: (BuildContext context, int index) {
-                return Row(
-                  children: [
-                    Image.network(
-                      data[index].url,
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Text(data[index].description),
-                  ],
-                );
-              },
-            )
-          : Center(child: CircularProgressIndicator()),
+            ),
+            SizedBox(height: 8),
+            Center(
+              child: Material(
+                color: Colors.deepPurple[100],
+                elevation: 8,
+                borderRadius: BorderRadius.all(Radius.circular(28)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: InkWell(
+                  splashColor: Colors.deepPurple[100],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ListViewAdds(data: datadata)),
+                    );
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Ink.image(
+                        image: AssetImage('lib/images/vedeo.png'),
+                        height: 240,
+                        width: 385,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        'Play video',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Color.fromARGB(255, 246, 148, 62),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
+            Center(
+              child: Material(
+                color: Colors.deepPurple[100],
+                elevation: 8,
+                borderRadius: BorderRadius.all(Radius.circular(28)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: InkWell(
+                  splashColor: Colors.deepPurple[100],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageSliderPage()),
+                    );
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Ink.image(
+                        image: AssetImage('lib/images/imaage.png'),
+                        height: 240,
+                        width: 385,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        'Play images',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Color.fromARGB(255, 246, 148, 62),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
+          ],
+        ),
+      ),
       bottomNavigationBar: Menubar(
         currentIndex: 0,
         selectedIconColor: Color.fromARGB(255, 246, 148, 62),
