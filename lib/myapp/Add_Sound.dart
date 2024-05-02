@@ -17,13 +17,23 @@ class _AddSoundState extends State<AddSound> {
   String? _soundUrl;
 
   Future<void> _pickSound() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-    if (result != null) {
-      setState(() {
-        _soundFile = File(result.files.single.path!);
-      });
-    } else {
-      print('Sound selection cancelled or failed.');
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        type: FileType.custom,
+        allowedExtensions: ['mp3'],
+      );
+      if (result != null) {
+        setState(() {
+          _soundFile = File(result.files.single.path!);
+        });
+      } else {
+        print('Sound selection cancelled or failed.');
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to pick sound: $error')),
+      );
     }
   }
 
