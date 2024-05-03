@@ -34,12 +34,12 @@ class Login extends StatelessWidget {
                   email = value.trim();
                 },
                 decoration: InputDecoration(
-                  hintText: 'Enter your name here ',
-                  labelText: 'nameField',
+                  hintText: 'Mail field',
+                  labelText: 'Enter your Mail here',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(Icons.mail),
                 ),
               ), // preparer le text field de nom d utilisateur
             ),
@@ -52,8 +52,8 @@ class Login extends StatelessWidget {
                 },
                 obscureText: true,
                 decoration: InputDecoration(
-                  hintText: 'enter your password ',
-                  labelText: 'password field ',
+                  hintText: 'password field ',
+                  labelText: 'enter your password ',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

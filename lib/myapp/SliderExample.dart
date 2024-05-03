@@ -42,7 +42,7 @@ class _ImageSliderPageState extends State<ImageSliderPage> {
           itemCount: data.length,
           itemBuilder: ((context, index) {
             final imageurl = data[index].url;
-            return Text(imageurl);
+            return Image.network(imageurl);
           }),
         ),
       )
