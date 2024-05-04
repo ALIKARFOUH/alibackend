@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/widgets.dart';
@@ -33,19 +34,51 @@ class _ImageSliderPageState extends State<ImageSliderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Text("data"),
       SizedBox(height: 30),
-      SizedBox(
-        height: 200,
-        width: 200,
-        child: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: ((context, index) {
-            final imageurl = data[index].url;
-            return Image.network(imageurl);
-          }),
+      Expanded(
+        child: SizedBox(
+          width: double.infinity,
+          child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                final item = data[index];
+                return SizedBox(
+                  child: Row(
+                    children: [
+                      Image.network(
+                        item.url,
+                        width: 150,
+                      ),
+                      SizedBox(width: 15),
+                      Text(item.description),
+                      SizedBox(width: 15),
+                      PopupMenuButton<String>(
+                        onSelected: (String result) {
+                          if (result == 'Edit') {
+                          } else {
+                            DataService.deleteImage(item.id!);
+                            getData();
+                          }
+                          // Perform action based on selected item
+                        },
+                        itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<String>>[
+                          PopupMenuItem<String>(
+                            value: 'Edit',
+                            child: Text('Edit'),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'Delete',
+                            child: Text('Delete'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }),
         ),
-      )
+      ),
     ]));
   }
 
@@ -53,7 +86,7 @@ class _ImageSliderPageState extends State<ImageSliderPage> {
         height: 200,
         width: 200,
         margin: EdgeInsets.symmetric(horizontal: 5),
-        child: Image.network(urlImage, fit: BoxFit.cover),
+        child: Text(urlImage),
       );
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
