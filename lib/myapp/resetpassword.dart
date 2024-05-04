@@ -45,7 +45,7 @@ class Resetpassword extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
-               decoration: InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Please enter your password here here',
                 labelText: 'password  field',
                 border:
@@ -69,13 +69,19 @@ class Resetpassword extends StatelessWidget {
                       // ignore: use_build_context_synchronously
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Password reset email sent to $email'),
+                          content: Text(
+                              'please check mailPassword : reset email sent to $email'),
                         ),
                       );
                       // Show a message confirming that the password reset email has been sent
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Login()),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Password is reseted successfully'),
+                        ),
                       );
                       // Navigate back to the login page after sending the email
                     } else {
@@ -91,8 +97,8 @@ class Resetpassword extends StatelessWidget {
                     // Show an error message if there's an error during the password reset process
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content:
-                            Text('An error occurred. Please try again later.'),
+                        content: Text(
+                            'Mail invalid . Please try to enter a valid mail.'),
                       ),
                     );
                   }

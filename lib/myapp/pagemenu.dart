@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:namer_app/component/spacedItemsList.dart';
 import 'package:namer_app/component/menubar.dart';
+import 'package:namer_app/menupages/Editprofile.dart';
 
 class Pagemenu extends StatelessWidget {
   @override
@@ -49,7 +50,11 @@ class Pagemenu extends StatelessWidget {
                         size: 30,
                       ),
                       onPressed: () {
-                        // Add edit functionality here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Editprofile()),
+                        );
                       },
                       color: Colors.white,
                     ),
