@@ -4,7 +4,7 @@ class VideoModel {
   String gender;
   bool isImage;
   String url;
-
+  String? id;
   VideoModel({
     required this.description,
     required this.age,
@@ -28,4 +28,7 @@ class VideoModel {
         'isImage': isImage,
         'url': url,
       };
+  void setId(String id) {
+    this.id = id;
+  }
 }

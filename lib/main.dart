@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
         '/addads': (context) => Addadds(),
         '/forget': (context) => ForgotPassword(),
         '/create': (context) => Createacc(),
-        
       },
     );
   }

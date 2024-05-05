@@ -5,7 +5,6 @@ import 'package:namer_app/component/Grid_Item.dart';
 import 'package:namer_app/myapp/Form-details2.dart';
 import 'package:namer_app/myapp/Add_Sound.dart';
 import 'package:namer_app/myapp/form_details.dart';
-import 'package:namer_app/myapp/form_details.dart';
 
 class GridViewExample extends StatelessWidget {
   @override

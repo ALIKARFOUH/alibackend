@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:namer_app/component/data_service.dart';
-import 'package:namer_app/component/listviewaddsimages.dart';
 import 'package:namer_app/models/form_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -59,7 +58,6 @@ class _ImageSliderPageState extends State<ImageSliderPage> {
                             DataService.deleteImage(item.id!);
                             getData();
                           }
-                          // Perform action based on selected item
                         },
                         itemBuilder: (BuildContext context) =>
                             <PopupMenuEntry<String>>[
