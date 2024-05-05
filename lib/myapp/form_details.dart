@@ -13,6 +13,7 @@ class FormDetails extends StatefulWidget {
 }
 
 class _FormDetailsState extends State<FormDetails> {
+  bool _isUploading = false;
   String _description = '';
   final _duration = TextEditingController(text: '30');
   String _selectedGender = 'Both';
@@ -131,45 +132,69 @@ class _FormDetailsState extends State<FormDetails> {
             SizedBox(height: 50),
             Center(
               child: ElevatedButton(
-                onPressed: () async {
-                  try {
-                    final firestore =
-                        FirebaseFirestore.instance.collection('ads');
+                onPressed: _isUploading
+                    ? null
+                    : () async {
+                        try {
+                          setState(() {
+                            _isUploading =
+                                true; // Marquer le téléchargement comme en cours
+                          });
+                          final firestore =
+                              FirebaseFirestore.instance.collection('ads');
 
-                    final id = firestore.doc().id;
+                          final id = firestore.doc().id;
 
-                    final storageRef =
-                        FirebaseStorage.instance.ref().child('files/$id');
-                    await storageRef.putFile(widget.file,
-                        SettableMetadata(contentType: 'image/jpeg'));
-                    final downloadUrl = await storageRef.getDownloadURL();
-                    final form = FormModel(
-                      description: _description,
-                      age: _selectedAgeRange,
-                      duration: int.parse(_duration.text),
-                      gender: _selectedGender,
-                      isImage: true,
-                      url: downloadUrl,
-                    );
-                    await firestore.doc(id).set(form.toJson());
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Image uploaded successfully')));
-                    Navigator.of(context).pop();
-                    print('generated id $id');
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Error uploading image')));
-                  }
-                },
+                          final storageRef =
+                              FirebaseStorage.instance.ref().child('files/$id');
+                          await storageRef.putFile(widget.file,
+                              SettableMetadata(contentType: 'image/jpeg'));
+                          final downloadUrl = await storageRef.getDownloadURL();
+                          final form = FormModel(
+                            description: _description,
+                            age: _selectedAgeRange,
+                            duration: int.parse(_duration.text),
+                            gender: _selectedGender,
+                            isImage: true,
+                            url: downloadUrl,
+                          );
+                          await firestore.doc(id).set(form.toJson());
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Image uploaded successfully')));
+                          Navigator.of(context).pop();
+                          print('generated id $id');
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Error uploading image')));
+                        } finally {
+                          setState(() {
+                            _isUploading =
+                                false; // Marquer le téléchargement comme terminé
+                          });
+                        }
+                      },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Color.fromARGB(255, 246, 148, 62),
                   ),
                 ), // inserer buttom de login
-                child: Text(
-                  'Submit ',
-                  style: TextStyle(color: Colors.black),
-                ),
+                child: _isUploading
+                    ? SizedBox(
+                        width: 24.0,
+                        height: 24.0,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.0,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.black),
+                        ),
+                      )
+                    : Text(
+                        'Submit ',
+                        style: TextStyle(color: Colors.black),
+                      ),
               ),
             ),
             SizedBox(height: 16),
