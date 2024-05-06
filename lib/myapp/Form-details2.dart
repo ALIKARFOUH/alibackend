@@ -15,6 +15,7 @@ class FormDetails2 extends StatefulWidget {
 }
 
 class _FormDetails2State extends State<FormDetails2> {
+  bool _isUploading = false;
   String _description = '';
   String _selectedGender = 'Both';
   String _selectedAgeRange = '18-25';
@@ -132,44 +133,68 @@ class _FormDetails2State extends State<FormDetails2> {
             SizedBox(height: 50),
             Center(
               child: ElevatedButton(
-                onPressed: () async {
-                  try {
-                    final firestore =
-                        FirebaseFirestore.instance.collection('ads');
+                onPressed: _isUploading
+                    ? null
+                    : () async {
+                        try {
+                          setState(() {
+                            _isUploading =
+                                true; // Marquer le téléchargement comme en cours
+                          });
+                          final firestore =
+                              FirebaseFirestore.instance.collection('ads');
 
-                    final id = firestore.doc().id;
+                          final id = firestore.doc().id;
 
-                    final storageRef =
-                        FirebaseStorage.instance.ref().child('files/$id');
-                    await storageRef.putFile(widget.file,
-                        SettableMetadata(contentType: 'video/mp4'));
-                    final downloadUrl = await storageRef.getDownloadURL();
-                    final form = VideoModel(
-                      description: _description,
-                      age: _selectedAgeRange,
-                      gender: _selectedGender,
-                      isImage: false,
-                      url: downloadUrl,
-                    );
-                    await firestore.doc(id).set(form.toJson());
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Video uploaded successfully')));
-                    Navigator.of(context).pop();
-                    print('generated id $id');
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Error uploading video')));
-                  }
-                },
+                          final storageRef =
+                              FirebaseStorage.instance.ref().child('files/$id');
+                          await storageRef.putFile(widget.file,
+                              SettableMetadata(contentType: 'video/mp4'));
+                          final downloadUrl = await storageRef.getDownloadURL();
+                          final form = VideoModel(
+                            description: _description,
+                            age: _selectedAgeRange,
+                            gender: _selectedGender,
+                            isImage: false,
+                            url: downloadUrl,
+                          );
+                          await firestore.doc(id).set(form.toJson());
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Video uploaded successfully')));
+                          Navigator.of(context).pop();
+                          print('generated id $id');
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Error uploading video')));
+                        } finally {
+                          setState(() {
+                            _isUploading =
+                                false; // Marquer le téléchargement comme terminé
+                          });
+                        }
+                      },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Color.fromARGB(255, 246, 148, 62),
                   ),
                 ), // insert login button
-                child: Text(
-                  'Submit ',
-                  style: TextStyle(color: Colors.black),
-                ),
+                child: _isUploading
+                    ? SizedBox(
+                        width: 24.0,
+                        height: 24.0,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.0,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.black),
+                        ),
+                      )
+                    : Text(
+                        'Submit ',
+                        style: TextStyle(color: Colors.black),
+                      ),
               ),
             ),
             SizedBox(height: 16),
