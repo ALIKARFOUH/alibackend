@@ -138,6 +138,10 @@ class _ListviewvideoState extends State<Listviewvideo> {
                               value: 'Delete',
                               child: Text('Delete'),
                             ),
+                            PopupMenuItem<String>(
+                              value: 'Stream Now',
+                              child: Text('Stream Now'),
+                            ),
                           ],
                         ),
                       ],

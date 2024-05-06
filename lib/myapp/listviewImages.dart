@@ -69,6 +69,10 @@ class _ImageSliderPageState extends State<ImageSliderPage> {
                             value: 'Delete',
                             child: Text('Delete'),
                           ),
+                          PopupMenuItem<String>(
+                            value: 'Stream Now',
+                            child: Text('Stream Now'),
+                          ),
                         ],
                       ),
                     ],
@@ -94,4 +98,3 @@ class _ImageSliderPageState extends State<ImageSliderPage> {
         count: data.length,
       );
 }
-// List<FormModel> data = [];
