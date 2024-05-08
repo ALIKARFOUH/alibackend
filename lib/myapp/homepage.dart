@@ -3,7 +3,7 @@ import 'package:namer_app/component/listviewVideo.dart';
 import 'package:namer_app/component/menubar.dart';
 import 'package:namer_app/models/form_model.dart';
 import 'package:namer_app/myapp/listviewimages.dart';
-import 'package:namer_app/component/data_service.dart';
+import 'package:namer_app/component/MusicList.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -40,7 +40,12 @@ class _HomepageState extends State<Homepage> {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: InkWell(
                   splashColor: Colors.deepPurple[100],
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MusicWidget()),
+                    );
+                  },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

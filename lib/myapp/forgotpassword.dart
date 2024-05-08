@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:namer_app/myapp/login.dart';
 import 'package:namer_app/myapp/resetpassword.dart';
 
 class ForgotPassword extends StatelessWidget {
@@ -10,6 +11,15 @@ class ForgotPassword extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[400],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            );
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

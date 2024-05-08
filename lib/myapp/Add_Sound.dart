@@ -14,6 +14,7 @@ class AddSound extends StatefulWidget {
 class _AddSoundState extends State<AddSound> {
   File? _soundFile;
   String? _soundUrl;
+  bool _isUploading = false;
 
   Future<void> _pickSound() async {
     try {
@@ -38,17 +39,19 @@ class _AddSoundState extends State<AddSound> {
 
   Future<void> _uploadSound() async {
     try {
+      setState(() {
+        _isUploading = true; // Marquez le téléchargement comme en cours
+      });
       final firestore = FirebaseFirestore.instance.collection('music');
       final id = firestore.doc().id;
-
-      final storageRef = FirebaseStorage.instance.ref().child('music/$id');
-      final uploadTask = storageRef.putFile(_soundFile!);
-
+      final storageRef = FirebaseStorage.instance.ref().child('music/$id.mp3');
+      final metadata = SettableMetadata(contentType: 'audio/mp3');
+      final uploadTask = storageRef.putFile(_soundFile!, metadata);
       final TaskSnapshot snapshot = await uploadTask;
       final String downloadUrl = await snapshot.ref.getDownloadURL();
 
       await firestore.doc(id).set({
-        'soundUrl': downloadUrl,
+        'soundUrl': downloadUrl.toString(),
       });
       setState(() {
         _soundUrl = downloadUrl;
@@ -60,6 +63,10 @@ class _AddSoundState extends State<AddSound> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to upload sound: $error')),
       );
+    } finally {
+      setState(() {
+        _isUploading = false; // Marquez le téléchargement comme terminé
+      });
     }
   }
 
@@ -116,22 +123,24 @@ class _AddSoundState extends State<AddSound> {
             ),
             SizedBox(height: 50),
             Center(
-              child: ElevatedButton(
-                onPressed: _soundFile != null
-                    ? _uploadSound
-                    : null, // Disable if no sound selected
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    _soundFile != null
-                        ? Color.fromARGB(255, 246, 148, 62)
-                        : Colors.grey, // Gray out disabled button
-                  ),
-                ),
-                child: Text(
-                  'Submit',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
+              child: _isUploading
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _soundFile != null
+                          ? _uploadSound
+                          : null, // Disable if no sound selected
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          _soundFile != null
+                              ? Color.fromARGB(255, 246, 148, 62)
+                              : Colors.grey, // Gray out disabled button
+                        ),
+                      ),
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
             ),
           ],
         ),

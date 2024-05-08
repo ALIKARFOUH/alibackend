@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/myapp/homepage.dart';
+import 'package:namer_app/myapp/login.dart';
 
 class Createacc extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -12,8 +13,17 @@ class Createacc extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[400],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            );
+          },
+        ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           SizedBox(height: 80),
           Center(
@@ -77,9 +87,8 @@ class Createacc extends StatelessWidget {
             ),
           ),
           SizedBox(height: 50),
-          SizedBox(
-            width: 250,
-            height: 55,
+          Container(
+            width: 50,
             child: ElevatedButton(
               onPressed: () async {
                 try {
@@ -127,9 +136,8 @@ class Createacc extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-          Expanded(
-            // purple box down
-            child: Container(),
+          SizedBox(
+            height: 100,
           ),
           Container(
             height: 50, //
