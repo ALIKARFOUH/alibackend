@@ -97,164 +97,128 @@ class _ImageSliderPageessState extends State<ImageSliderPageess> {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
+                      child: Card(
+                        elevation: 10,
+                        shadowColor: Colors.grey.withOpacity(0.3),
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              offset: Offset(-10.0, 10.0),
-                              blurRadius: 20.0,
-                              spreadRadius: 4.0,
-                            ),
-                          ],
                         ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 0,
-                              left: 30,
-                              child: SizedBox(
-                                width: 400, // Set the width of the container
-                                child: Row(
-                                  children: [
-                                    Card(
-                                      elevation: 10,
-                                      shadowColor: Colors.grey.withOpacity(0.5),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Container(
-                                        height: 200,
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(item.url),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 80,
-                                    ), // Add spacing between the image and the text
-                                  ],
-                                ),
+                        child: ListTile(
+                          leading: Container(
+                            height: 600, // Updated height to 230
+                            width: 200, // Updated width to 200
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(item.url),
                               ),
                             ),
-                            Positioned(
-                              top: 45,
-                              left: 160,
-                              child: SizedBox(
-                                height: 150,
-                                width: 180,
+                          ),
+                          title: Text(
+                            item.description,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.deepPurple[400],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 20),
+                              Divider(
+                                height: 5,
+                                thickness: 2,
+                                color: Colors.grey[300],
+                                indent: 25,
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                item.age,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                item.gender,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 246, 148, 62),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          trailing: PopupMenuButton<String>(
+                            onSelected: (String result) {
+                              if (result == 'Edit') {
+                                // Handle Edit action
+                              } else if (result == 'Delete') {
+                                DataService.deleteImage(item.id!);
+                                getData();
+                              } else if (result == 'StreamNow') {
+                                // Handle Stream Now action
+                              }
+                            },
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<String>>[
+                              PopupMenuItem<String>(
+                                value: 'Edit',
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              item.description,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.deepPurple[400],
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(height: 20),
-                                            Divider(
-                                              height: 5,
-                                              thickness: 2,
-                                              color: Colors.grey[300],
-                                              indent: 25,
-                                            ),
-                                            SizedBox(width: 30),
-                                            Text(
-                                              item.age,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              item.gender,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: Color.fromARGB(
-                                                    255, 246, 148, 62),
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    Icon(
+                                      Icons.edit,
+                                      color: Colors.deepPurple,
                                     ),
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: PopupMenuButton<String>(
-                                        icon: Icon(
-                                          Icons.more_vert,
-                                          color: Colors.deepPurple[
-                                              400], // Change the color of the icon
-                                        ),
-                                        onSelected: (String result) {
-                                          if (result == 'Edit') {
-                                            // Handle edit action
-                                          } else {
-                                            DataService.deleteImage(item.id!);
-                                            getData();
-                                          }
-                                        },
-                                        itemBuilder: (BuildContext context) =>
-                                            <PopupMenuEntry<String>>[
-                                          PopupMenuItem<String>(
-                                            value: 'Edit',
-                                            child: ListTile(
-                                              leading: Icon(Icons.edit,
-                                                  color: Colors
-                                                      .deepPurple), // Play icon
-                                              title: Text('Edit'),
-                                            ),
-                                          ),
-                                          PopupMenuItem<String>(
-                                            value: 'Delete',
-                                            child: ListTile(
-                                              leading: Icon(Icons.delete,
-                                                  color: Colors
-                                                      .deepPurple), // Play icon
-                                              title: Text('delete'),
-                                            ),
-                                          ),
-                                          PopupMenuItem<String>(
-                                            value: 'Stream now',
-                                            child: ListTile(
-                                              leading: Icon(Icons.play_arrow,
-                                                  color: Colors
-                                                      .deepPurple), // Play icon
-                                              title: Text('Stream now'),
-                                            ),
-                                            
-                                          ),
-                                        ],
-                                      ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Edit',
+                                      style:
+                                          TextStyle(color: Colors.deepPurple),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                          ],
+                              PopupMenuItem<String>(
+                                value: 'Delete',
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.delete,
+                                      color: Colors.deepPurple,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Delete',
+                                      style:
+                                          TextStyle(color: Colors.deepPurple),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'StreamNow',
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.live_tv,
+                                      color: Colors.deepPurple,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Stream Now',
+                                      style:
+                                          TextStyle(color: Colors.deepPurple),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

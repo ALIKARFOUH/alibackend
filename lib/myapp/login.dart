@@ -16,7 +16,7 @@ class Login extends StatelessWidget {
         child: Column(
           children: [
             Image(
-              image: AssetImage('lib/images/iconhome.png'),
+              image: AssetImage('lib/images/Ecommerce campaign-amico (1).png'),
             ), // import de photo de page login
             Text(
               'Bienvenu',
