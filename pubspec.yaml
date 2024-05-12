@@ -39,6 +39,7 @@ dependencies:
   just_audio: ^0.9.37
   flutter_media_metadata: ^1.0.0+1
   shared_preferences: ^2.2.3
+  email_validator: ^2.1.17
  
 
 dev_dependencies:
