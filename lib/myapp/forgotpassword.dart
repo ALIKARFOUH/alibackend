@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/myapp/login.dart';
-import 'package:namer_app/myapp/resetpassword.dart';
 
 class ForgotPassword extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -62,9 +61,11 @@ class ForgotPassword extends StatelessWidget {
                       Navigator.push(
                         // ignore: use_build_context_synchronously
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Resetpassword()),
+                        MaterialPageRoute(builder: (context) => Login()),
                       );
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                              'please check your email to reset the password ')));
                     } catch (e) {
                       print(e);
                     }
