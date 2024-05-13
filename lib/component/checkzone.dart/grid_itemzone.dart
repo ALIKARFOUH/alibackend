@@ -9,20 +9,17 @@ class GridItemzone extends StatelessWidget {
 
   const GridItemzone(
       {Key? key,
-       this.icon,
-       required this.image,
-       required this.video,
+      this.icon,
+      required this.image,
+      required this.video,
       this.expandIcon,
       required this.destination})
       : super(key: key);
-      
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Navigate to a new page when the item is clicked
-       Navigator.pop(context);
-      },
+      onTap: () {},
       child: Center(
         child: Container(
           margin: EdgeInsets.all(8),

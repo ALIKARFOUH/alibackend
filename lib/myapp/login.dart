@@ -140,7 +140,8 @@ class _LoginState extends State<Login> {
                       );
                       if (userCredential.user != null &&
                           userCredential.user!.emailVerified) {
-                        Navigator.pushReplacementNamed(context, '/home');
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/home', (route) => false);
                       }
                     } catch (e) {
                       print(e);

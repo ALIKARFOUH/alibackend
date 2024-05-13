@@ -9,51 +9,45 @@ class Menubar extends StatelessWidget {
     required this.currentIndex,
     required this.selectedIconColor,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       backgroundColor: Colors.deepPurple[400],
-
-      //when you select the icon color
       unselectedIconTheme: IconThemeData(color: Colors.white),
-      selectedIconTheme: IconThemeData(
-          color: Color.fromARGB(
-              255, 246, 148, 62)), //when you unselect the icon color
-      //when you select the icon text color
-      unselectedItemColor: Colors.white, //when you unselect the icon text color
+      selectedIconTheme: IconThemeData(color: selectedIconColor),
+      unselectedItemColor: Colors.white,
+      selectedItemColor: Colors.orange, // Set the selected item color to orange
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Home', // home icon call
+          label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.add), // add logo plus
-          label: 'Add', // plus icon call
+          icon: Icon(Icons.add),
+          label: 'Add',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.menu),
-          label: 'Menu', // plus icon call
+          label: 'Menu',
         ),
       ],
-      currentIndex: 0,
+      currentIndex:
+          currentIndex, // Use the currentIndex passed in the constructor
       onTap: (index) {
-        // Check if the clicked index is the same as the current index
         if (index == currentIndex) {
-          return; // Do nothing if the indexes are the same
+          return;
         }
 
         switch (index) {
           case 0:
-            Navigator.pushReplacementNamed(
-                context, '/home'); // Navigate to HomePage
+            Navigator.pushReplacementNamed(context, '/home');
             break;
           case 1:
-            Navigator.pushReplacementNamed(
-                context, '/addads'); // Navigate to AddAdsPage
+            Navigator.pushReplacementNamed(context, '/addads');
             break;
           case 2:
-            Navigator.pushReplacementNamed(
-                context, '/menu'); // Navigate to MenuPage
+            Navigator.pushReplacementNamed(context, '/menu');
             break;
           default:
             break;
@@ -62,7 +56,3 @@ class Menubar extends StatelessWidget {
     );
   }
 }
-//'/Login': (context) => Login(),
-   //     '/homepage':(context) => Homepage(),
-    //    '/menu': (context) =>Menupage()
-    //  },
