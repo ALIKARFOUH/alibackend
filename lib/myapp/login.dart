@@ -16,16 +16,9 @@ class Login extends StatelessWidget {
         child: Column(
           children: [
             Image(
-              image: AssetImage('lib/images/Ecommerce campaign-amico (1).png'),
+              image: AssetImage('lib/images/iconhome.png'),
             ), // import de photo de page login
-            Text(
-              'Bienvenu',
-              style: TextStyle(
-                fontFamily: 'Popins',
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-            ), // ecrire Bienvenu
+
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
