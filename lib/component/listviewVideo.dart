@@ -34,8 +34,10 @@ class _ListviewvideoState extends State<Listviewvideo> {
     List<VideoModel> fetchedData = await DataService.getvideos();
     setState(() {
       data = fetchedData;
-      videoControllers =
-          List.generate(data.length, (_) => VideoPlayerController.network(""));
+      videoControllers = List.generate(
+        data.length,
+        (index) => VideoPlayerController.networkUrl(Uri.parse(data[index].url)),
+      );
       for (int i = 0; i < data.length; i++) {
         _initializeVideoPlayer(data[i].url, i);
       }
@@ -43,7 +45,8 @@ class _ListviewvideoState extends State<Listviewvideo> {
   }
 
   void _initializeVideoPlayer(String videoUrl, int index) {
-    videoControllers[index] = VideoPlayerController.network(videoUrl);
+    videoControllers[index] =
+        VideoPlayerController.networkUrl(Uri.parse(videoUrl));
     videoControllers[index].addListener(() {
       if (videoControllers[index].value.hasError) {
         print('Video Error: ${videoControllers[index].value.errorDescription}');
@@ -121,9 +124,7 @@ class _ListviewvideoState extends State<Listviewvideo> {
                         SizedBox(width: 15),
                         PopupMenuButton<String>(
                           onSelected: (String result) {
-                            if (result == 'Edit') {
-                              // modifier le
-                            } else {
+                            if (result == 'Delete') {
                               DataService.deleteVideo(item.id!);
                               getData();
                             }

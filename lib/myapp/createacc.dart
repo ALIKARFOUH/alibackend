@@ -5,8 +5,14 @@ import 'package:namer_app/myapp/login.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Createacc extends StatelessWidget {
+class Createacc extends StatefulWidget {
+  @override
+  _CreateaccState createState() => _CreateaccState();
+}
+
+class _CreateaccState extends State<Createacc> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _passwordVisible = false;
 
   Future<void> showSnackbar(BuildContext context, String message) async {
     final snackBar = SnackBar(content: Text(message));
@@ -14,12 +20,9 @@ class Createacc extends StatelessWidget {
   }
 
   Future<bool> checkEmail(
-      String email, String password, BuildContext context) async {
+      String email, String name, String password, BuildContext context) async {
     if (email.isEmpty) {
       await showSnackbar(context, 'Please enter your email');
-      return true;
-    } else if (password.isEmpty) {
-      await showSnackbar(context, 'Please enter your password');
       return true;
     } else if (!EmailValidator.validate(email)) {
       await showSnackbar(context, 'Please enter a valid email');
@@ -27,6 +30,12 @@ class Createacc extends StatelessWidget {
     } else {
       if (await isEmailRegistered(email)) {
         await showSnackbar(context, 'That email already exists');
+        return true;
+      } else if (name.isEmpty) {
+        await showSnackbar(context, 'Please enter your name');
+        return true;
+      } else if (password.isEmpty) {
+        await showSnackbar(context, 'Please enter your password');
         return true;
       }
       return false;
@@ -47,6 +56,20 @@ class Createacc extends StatelessWidget {
     }
   }
 
+  Future<void> saveUserData(String email, String name) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('user information')
+          .doc(email)
+          .set({
+        'name': name,
+        'email': email,
+      });
+    } catch (e) {
+      print("Error saving user data: $e");
+    }
+  }
+
   Future<bool> signUpWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential =
@@ -58,22 +81,6 @@ class Createacc extends StatelessWidget {
     } catch (e) {
       print("Error signing up: $e");
       return false;
-    }
-  }
-
-  Future<void> saveUserData(String email, String name) async {
-    try {
-      // Store user information in Firestore
-      await FirebaseFirestore.instance
-          .collection('user information')
-          .doc(email)
-          .set({
-        'name': name,
-        'email': email,
-        // You can add other user information here
-      });
-    } catch (e) {
-      print("Error saving user data: $e");
     }
   }
 
@@ -121,8 +128,8 @@ class Createacc extends StatelessWidget {
                     name = value.trim();
                   },
                   decoration: InputDecoration(
-                    hintText: ' Please enter your name   ',
-                    labelText: 'name field',
+                    hintText: ' name field  ',
+                    labelText: 'Please enter your name ',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -138,8 +145,8 @@ class Createacc extends StatelessWidget {
                     email = value;
                   },
                   decoration: InputDecoration(
-                    hintText: 'Please enter your email here  ',
-                    labelText: 'emailfield',
+                    hintText: 'email field',
+                    labelText: 'Please enter your email here',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -154,37 +161,51 @@ class Createacc extends StatelessWidget {
                   onChanged: (value) {
                     password = value;
                   },
-                  obscureText: true,
+                  obscureText: !_passwordVisible,
                   decoration: InputDecoration(
-                    hintText: 'Please enter the password here  ',
-                    labelText: 'password field',
+                    hintText: 'password field',
+                    labelText: 'Please enter the password here',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 50),
               Center(
                 child: Container(
-                  width: 150, // Adjust width here
-                  height: 40, // Adjust height here
+                  width: 150,
+                  height: 40,
                   child: ElevatedButton(
                     onPressed: () async {
                       try {
-                        if (!(await checkEmail(email, password, context))) {
+                        if (!(await checkEmail(
+                            email, name, password, context))) {
                           if (await signUpWithEmailAndPassword(
                               email, password)) {
                             await saveUserData(email, name);
-                            showSnackbar(
-                              context,
-                              'Welcome, your account was created successfully',
-                            );
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Homepage()),
+                            );
+                            showSnackbar(
+                              context,
+                              'Welcome, your account was created successfully',
                             );
                           }
                         }

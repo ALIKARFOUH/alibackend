@@ -58,7 +58,7 @@ class ForgotPassword extends StatelessWidget {
                   onPressed: () async {
                     try {
                       await _auth.sendPasswordResetEmail(email: email);
-                      Navigator.pushNamed(context, '/Login');
+                      Navigator.pushReplacementNamed(context, '/Login');
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text(
                               'please check your email to reset the password ')));

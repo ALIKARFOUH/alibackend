@@ -15,7 +15,7 @@ class _MusicWidgetState extends State<MusicWidget> {
   bool isLoading = true;
   bool isError = false;
   int currentPlayingIndex = -1;
-  bool isPlaying = false;
+  List<bool> isPlayingList = [];
 
   @override
   void initState() {
@@ -30,6 +30,7 @@ class _MusicWidgetState extends State<MusicWidget> {
         setState(() {
           data = fetchedData;
           audioPlayers = List.generate(data.length, (_) => AudioPlayer());
+          isPlayingList = List.generate(data.length, (_) => false);
           for (int i = 0; i < data.length; i++) {
             _initializeAudioPlayer(data[i]['soundUrl'], i);
           }
@@ -80,15 +81,15 @@ class _MusicWidgetState extends State<MusicWidget> {
       title: Text(musicName),
       trailing: IconButton(
         onPressed: () => _togglePlayPause(index),
-        icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+        icon: Icon(isPlayingList[index] ? Icons.pause : Icons.play_arrow),
       ),
     );
   }
 
   void _togglePlayPause(int index) {
     setState(() {
-      isPlaying = !isPlaying;
-      if (isPlaying) {
+      isPlayingList[index] = !isPlayingList[index];
+      if (isPlayingList[index]) {
         _playAudio(index);
       } else {
         audioPlayers[index].pause();
@@ -99,7 +100,19 @@ class _MusicWidgetState extends State<MusicWidget> {
   String _extractMusicName(String audioUrl) {
     RegExp regex = RegExp(r'/([^/]+)\.mp3$');
     Match? match = regex.firstMatch(audioUrl);
-    return match != null ? match.group(1) ?? '$match' : 'Unknown Name';
+
+    // Vérification de la correspondance
+    if (match != null) {
+      // Extraction du nom de la musique à partir de la correspondance
+      String? musicName = match.group(1);
+      // Vérification si le nom de la musique a été capturé avec succès
+      if (musicName != null) {
+        return musicName;
+      }
+    }
+
+    // Si aucune correspondance n'a été trouvée ou si le nom de la musique n'a pas pu être extrait
+    return 'Unknown Name';
   }
 
   void _setVolume(int index, double volume) {
@@ -109,6 +122,7 @@ class _MusicWidgetState extends State<MusicWidget> {
   void _playAudio(int index) {
     if (currentPlayingIndex != -1) {
       audioPlayers[currentPlayingIndex].stop();
+      isPlayingList[currentPlayingIndex] = false;
     }
     audioPlayers[index].play();
     currentPlayingIndex = index;
@@ -116,7 +130,7 @@ class _MusicWidgetState extends State<MusicWidget> {
 
   @override
   void dispose() {
-    for (var player in audioPlayers) {
+    for (AudioPlayer player in audioPlayers) {
       player.dispose();
     }
     super.dispose();
