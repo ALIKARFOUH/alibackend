@@ -119,37 +119,6 @@ class _ListviewvideoState extends State<Listviewvideo> {
             ),
           ),
           SizedBox(height: 30),
-          Center(
-            child: Container(
-              height: 230,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 35,
-                    child: Material(
-                      elevation: 4,
-                      child: Container(
-                        height: 180.0,
-                        width: 290,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              offset: Offset(-10.0, 10.0),
-                              blurRadius: 20.0,
-                              spreadRadius: 4.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           Expanded(
             child: SizedBox(
               width: double.infinity,

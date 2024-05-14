@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
         '/create': (context) => Createacc(),
         '/Acceuil': (context) => Acceuil(),
       },
-      debugShowCheckedModeBanner: false,
     );
   }
 }
