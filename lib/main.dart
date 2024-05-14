@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:namer_app/myapp/acceuil.dart';
 import 'package:namer_app/myapp/addadds.dart';
 import 'package:namer_app/myapp/createacc.dart';
 import 'package:namer_app/myapp/forgotpassword.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Login(),
       title: 'My App',
-      initialRoute: '/home',
+      initialRoute: '/Acceuil',
       routes: {
         '/Login': (context) => Login(),
         '/home': (context) => Homepage(),
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
         '/addads': (context) => Addadds(),
         '/forget': (context) => ForgotPassword(),
         '/create': (context) => Createacc(),
+        '/Acceuil': (context) => Acceuil(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

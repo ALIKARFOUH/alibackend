@@ -67,7 +67,89 @@ class _ListviewvideoState extends State<Listviewvideo> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Container(
+            height: 230,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(50),
+              ),
+              color: Colors.deepPurple[300],
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 88,
+                  left: 8,
+                  child: Container(
+                    height: 80,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Image.asset(
+                            'lib/images/chat-video.png',
+                            height: 60,
+                            width: 75,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "your videos",
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 30,
+                              color: Colors.deepPurple[400],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: 30),
+          Center(
+            child: Container(
+              height: 230,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 35,
+                    child: Material(
+                      elevation: 4,
+                      child: Container(
+                        height: 180.0,
+                        width: 290,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              offset: Offset(-10.0, 10.0),
+                              blurRadius: 20.0,
+                              spreadRadius: 4.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             child: SizedBox(
               width: double.infinity,

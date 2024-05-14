@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/component/listvideo.dart';
 import 'package:namer_app/component/listviewVideo.dart';
 import 'package:namer_app/component/menubar.dart';
 import 'package:namer_app/models/form_model.dart';
-import 'package:namer_app/myapp/listviewimages.dart';
+import 'package:namer_app/myapp/listviewimages1.dart';
 import 'package:namer_app/component/MusicList.dart';
 
 class Homepage extends StatefulWidget {
@@ -31,81 +32,7 @@ class _HomepageState extends State<Homepage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20),
-            Center(
-              child: Material(
-                color: Colors.deepPurple[100],
-                elevation: 8,
-                borderRadius: BorderRadius.all(Radius.circular(28)),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: InkWell(
-                  splashColor: Colors.deepPurple[100],
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MusicWidget()),
-                    );
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Ink.image(
-                        image: AssetImage('lib/images/musiccc.png'),
-                        height: 240,
-                        width: 385,
-                        fit: BoxFit.fill,
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        'Play music',
-                        style: TextStyle(
-                          fontSize: 32,
-                          color: Color.fromARGB(255, 246, 148, 62),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 8),
-            Center(
-              child: Material(
-                color: Colors.deepPurple[100],
-                elevation: 8,
-                borderRadius: BorderRadius.all(Radius.circular(28)),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: InkWell(
-                  splashColor: Colors.deepPurple[100],
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Listviewvideo()),
-                    );
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Ink.image(
-                        image: AssetImage('lib/images/vedeo.png'),
-                        height: 240,
-                        width: 385,
-                        fit: BoxFit.fill,
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        'Play video',
-                        style: TextStyle(
-                          fontSize: 32,
-                          color: Color.fromARGB(255, 246, 148, 62),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 8),
+            SizedBox(height: 10),
             Center(
               child: Material(
                 color: Colors.deepPurple[100],
@@ -118,7 +45,7 @@ class _HomepageState extends State<Homepage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ImageSliderPage()),
+                          builder: (context) => ImageSliderPageess()),
                     );
                   },
                   child: Column(
@@ -143,7 +70,76 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 15),
+            Center(
+              child: Material(
+                color: Colors.deepPurple[100],
+                elevation: 8,
+                borderRadius: BorderRadius.all(Radius.circular(28)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: InkWell(
+                  splashColor: Colors.deepPurple[100],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Listviewvideos()),
+                    );
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Ink.image(
+                        image: AssetImage('lib/images/vedeo.png'),
+                        height: 240,
+                        width: 385,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        'Play video',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Color.fromARGB(255, 246, 148, 62),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
+            Center(
+              child: Material(
+                color: Colors.deepPurple[100],
+                elevation: 8,
+                borderRadius: BorderRadius.all(Radius.circular(28)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: InkWell(
+                  splashColor: Colors.deepPurple[100],
+                  onTap: () {},
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Ink.image(
+                        image: AssetImage('lib/images/musiccc.png'),
+                        height: 240,
+                        width: 385,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        'Play music',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Color.fromARGB(255, 246, 148, 62),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
           ],
         ),
       ),
