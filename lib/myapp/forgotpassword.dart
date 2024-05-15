@@ -4,9 +4,11 @@ import 'package:namer_app/myapp/login.dart';
 
 class ForgotPassword extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     String email = '';
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[400],
@@ -22,18 +24,21 @@ class ForgotPassword extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 80),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 110, right: 0, top: 20, bottom: 20),
-              child: Text(
-                'Forgot password',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 245, 173, 110), fontSize: 40),
-              ),
+            Image(
+              image: AssetImage('lib/images/Forgot password-amico.png'),
+              height: 300,
+              width: 300,
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 20),
+            Text(
+              'Forgot password',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 245, 173, 110), fontSize: 40),
+            ),
+            SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -41,27 +46,27 @@ class ForgotPassword extends StatelessWidget {
                   email = value.trim();
                 },
                 decoration: InputDecoration(
-                  hintText: 'Please enter the mail here',
-                  labelText: 'mail field',
+                  hintText: 'Please enter the email here',
+                  labelText: 'Email',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
                   prefixIcon: Icon(Icons.mail),
                 ),
               ),
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 40),
             Center(
               child: SizedBox(
-                width: 200, // Set the desired width
-                height: 50, // Set the desired height
+                width: 200,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
                       await _auth.sendPasswordResetEmail(email: email);
                       Navigator.pushReplacementNamed(context, '/Login');
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(
-                              'please check your email to reset the password ')));
+                              'Please check your email to reset the password')));
                     } catch (e) {
                       print(e);
                     }
@@ -74,8 +79,13 @@ class ForgotPassword extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 20), // Add space here
           ],
         ),
+      ),
+      bottomNavigationBar: Container(
+        height: 64,
+        color: Colors.deepPurple[400],
       ),
     );
   }

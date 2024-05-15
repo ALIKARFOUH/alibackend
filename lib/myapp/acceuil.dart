@@ -6,7 +6,6 @@ class Acceuil extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[400],
-        
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -14,10 +13,10 @@ class Acceuil extends StatelessWidget {
           children: [
             Image(
               image: AssetImage('lib/images/Ecommerce campaign-amico (1).png'),
-              height: 200,
+              height: 600,
             ),
             Text(
-              'Bienvenue sur notre application',
+              'welcome to our application ',
               style: TextStyle(
                 fontFamily: 'Popins',
                 fontWeight: FontWeight.bold,
@@ -25,18 +24,32 @@ class Acceuil extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-               Navigator.pushReplacementNamed(context, '/Login');
-              },
-              child: Text('Se connecter'),
+            Text(
+              ' Control your own retail',
+              style: TextStyle(
+                  fontFamily: 'Popins',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 19,
+                  color: Colors.deepPurple),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Ajouter l'action à effectuer pour accéder à une autre page
+                Navigator.pushReplacementNamed(context, '/Login');
               },
-              child: Text('Autre action'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 246, 148, 62),
+                ),
+              ),
+              child: Text(
+                'Begin the jurney',
+                style: TextStyle(
+                    fontFamily: 'Popins',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 19,
+                    color: Colors.black),
+              ),
             ),
           ],
         ),
@@ -44,5 +57,3 @@ class Acceuil extends StatelessWidget {
     );
   }
 }
-
-
