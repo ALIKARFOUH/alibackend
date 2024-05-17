@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/myapp/auth/login.dart';
 
 class Acceuil extends StatelessWidget {
   @override
@@ -6,7 +7,6 @@ class Acceuil extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[400],
-        
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -27,7 +27,8 @@ class Acceuil extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-               Navigator.pushReplacementNamed(context, '/Login');
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Login()));
               },
               child: Text('Se connecter'),
             ),
@@ -44,5 +45,3 @@ class Acceuil extends StatelessWidget {
     );
   }
 }
-
-

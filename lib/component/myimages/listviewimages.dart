@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-import 'package:namer_app/component/data_service.dart';
+import 'package:namer_app/component/myimages/data_service.dart';
 import 'package:namer_app/models/form_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -31,12 +30,21 @@ class _ImageSliderPageessState extends State<ImageSliderPageess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: Colors.deepPurple[300],
+      ),
       backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            height: 230,
+            height: 150,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(50),
@@ -46,8 +54,8 @@ class _ImageSliderPageessState extends State<ImageSliderPageess> {
             child: Stack(
               children: [
                 Positioned(
-                  top: 88,
-                  left: 8,
+                  top: 30,
+                  left: 10,
                   child: Container(
                     height: 80,
                     width: 300,
@@ -94,19 +102,22 @@ class _ImageSliderPageessState extends State<ImageSliderPageess> {
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   final item = data[index];
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Card(
-                        elevation: 10,
-                        shadowColor: Colors.grey.withOpacity(0.3),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: ListTile(
-                          leading: Container(
-                            height: 250, // Updated height to 230
-                            width: 130, // Updated width to 200
+                  return Padding(
+                    padding: const EdgeInsets.all(
+                        10.0), // Ajouter du padding autour de chaque Card
+                    child: Card(
+                      elevation: 10,
+                      shadowColor: Colors.grey.withOpacity(0.3),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment
+                            .start, // Aligner les éléments en haut
+                        children: [
+                          Container(
+                            height: 270,
+                            width: 230,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -116,44 +127,60 @@ class _ImageSliderPageessState extends State<ImageSliderPageess> {
                               ),
                             ),
                           ),
-                          title: Text(
-                            item.description,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.deepPurple[400],
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                              width:
+                                  10), // Ajouter un espace entre l'image et les données
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    item.description,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.deepPurple[400],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Divider(
+                                  height: 5,
+                                  thickness: 2,
+                                  color: Colors.grey[300],
+                                  indent: 25,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.age,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        item.gender,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color:
+                                              Color.fromARGB(255, 246, 148, 62),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 20),
-                              Divider(
-                                height: 5,
-                                thickness: 2,
-                                color: Colors.grey[300],
-                                indent: 25,
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                item.age,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                item.gender,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Color.fromARGB(255, 246, 148, 62),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          trailing: PopupMenuButton<String>(
+                          PopupMenuButton<String>(
                             onSelected: (String result) {
                               if (result == 'Edit') {
                                 // Handle Edit action
@@ -219,7 +246,7 @@ class _ImageSliderPageessState extends State<ImageSliderPageess> {
                               ),
                             ],
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   );

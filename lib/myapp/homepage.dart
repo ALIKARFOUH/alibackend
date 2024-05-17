@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:namer_app/component/listvideo.dart';
-import 'package:namer_app/component/listviewVideo.dart';
+import 'package:namer_app/component/myvedio/listviewVideo.dart';
 import 'package:namer_app/component/menubar.dart';
 import 'package:namer_app/models/form_model.dart';
-import 'package:namer_app/myapp/listviewimages.dart';
-import 'package:namer_app/component/MusicList.dart';
+import 'package:namer_app/component/myimages/listviewimages.dart';
+import 'package:namer_app/component/mymusic/MusicList.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -82,7 +81,7 @@ class _HomepageState extends State<Homepage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Listviewvideos()),
+                      MaterialPageRoute(builder: (context) => Listviewvideo()),
                     );
                   },
                   child: Column(

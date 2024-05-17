@@ -2,10 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/myapp/acceuil.dart';
 import 'package:namer_app/myapp/addadds.dart';
-import 'package:namer_app/myapp/createacc.dart';
-import 'package:namer_app/myapp/forgotpassword.dart';
+import 'package:namer_app/myapp/auth/createacc.dart';
+import 'package:namer_app/myapp/auth/forgotpassword.dart';
 import 'package:namer_app/myapp/homepage.dart';
-import 'package:namer_app/myapp/login.dart';
+import 'package:namer_app/myapp/auth/login.dart';
 import 'package:namer_app/myapp/pagemenu.dart';
 
 void main() async {

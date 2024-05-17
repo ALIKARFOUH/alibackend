@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:namer_app/myapp/addadds.dart';
 
 class AddSound extends StatefulWidget {
   final File? file;
@@ -74,6 +75,15 @@ class _AddSoundState extends State<AddSound> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Addadds()),
+            );
+          },
+        ),
         title: Row(
           children: [
             CircleAvatar(

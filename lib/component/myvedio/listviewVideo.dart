@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:namer_app/models/video_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:namer_app/component/Video_service.dart';
+import 'package:namer_app/myapp/homepage.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:video_player/video_player.dart';
 
@@ -64,11 +65,19 @@ class _ListviewvideoState extends State<Listviewvideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        backgroundColor: Colors.deepPurple[300],
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            height: 230,
+            height: 150,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(50),
@@ -78,8 +87,8 @@ class _ListviewvideoState extends State<Listviewvideo> {
             child: Stack(
               children: [
                 Positioned(
-                  top: 88,
-                  left: 8,
+                  top: 30,
+                  left: 10,
                   child: Container(
                     height: 80,
                     width: 300,
@@ -178,21 +187,61 @@ class _ListviewvideoState extends State<Listviewvideo> {
                             if (result == 'Delete') {
                               DataService.deleteVideo(item.id!);
                               getData();
+                            } else if (result == 'Edit') {
+                              // Handle Edit action
+                            } else if (result == 'StreamNow') {
+                              // Handle Stream Now action
                             }
                           },
                           itemBuilder: (BuildContext context) =>
                               <PopupMenuEntry<String>>[
                             PopupMenuItem<String>(
                               value: 'Edit',
-                              child: Text('Edit'),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.edit,
+                                    color: Colors.deepPurple,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    'Edit',
+                                    style: TextStyle(color: Colors.deepPurple),
+                                  ),
+                                ],
+                              ),
                             ),
                             PopupMenuItem<String>(
                               value: 'Delete',
-                              child: Text('Delete'),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.delete,
+                                    color: Colors.deepPurple,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    'Delete',
+                                    style: TextStyle(color: Colors.deepPurple),
+                                  ),
+                                ],
+                              ),
                             ),
                             PopupMenuItem<String>(
-                              value: 'Stream Now',
-                              child: Text('Stream Now'),
+                              value: 'StreamNow',
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.live_tv,
+                                    color: Colors.deepPurple,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    'Stream Now',
+                                    style: TextStyle(color: Colors.deepPurple),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),

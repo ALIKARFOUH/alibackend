@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:namer_app/myapp/auth/createacc.dart';
+import 'package:namer_app/myapp/auth/forgotpassword.dart';
+import 'package:namer_app/myapp/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -140,8 +143,10 @@ class _LoginState extends State<Login> {
                       );
                       if (userCredential.user != null &&
                           userCredential.user!.emailVerified) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, '/home', (route) => false);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Homepage()));
                       }
                     } catch (e) {
                       print(e);
@@ -162,7 +167,10 @@ class _LoginState extends State<Login> {
                 SizedBox(width: 10),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/forget');
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPassword()));
                   },
                   child: Text(
                     'Forgot password',
@@ -175,7 +183,8 @@ class _LoginState extends State<Login> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/create');
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Createacc()));
               },
               child: Text(
                 'Don\'t have an account?',

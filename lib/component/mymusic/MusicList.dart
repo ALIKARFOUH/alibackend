@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart' as audio_players;
-import 'package:namer_app/component/Listview_music.dart';
+import 'package:namer_app/component/mymusic/Listview_music.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicWidget extends StatefulWidget {

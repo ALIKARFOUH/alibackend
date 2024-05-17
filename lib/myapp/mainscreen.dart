@@ -39,7 +39,7 @@ class Mainscreen extends StatelessWidget {
         onTap: (int index) {
           if (index == 1) {
             // Check if the tapped item is the "Add" icon
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => Addadds()),
             );

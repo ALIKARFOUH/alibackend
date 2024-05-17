@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:namer_app/component/Grid_Item.dart';
 import 'package:namer_app/myapp/Form-details2.dart';
-import 'package:namer_app/myapp/Add_Sound.dart';
-import 'package:namer_app/myapp/form_details.dart';
+import 'package:namer_app/component/mymusic/Add_Sound.dart';
+import 'package:namer_app/component/myimages/form_details.dart';
 
 class GridViewExample extends StatelessWidget {
   @override
@@ -31,10 +31,14 @@ class GridViewExample extends StatelessWidget {
               function: () async {
                 final selectedVideo = await _getVideo();
                 if (selectedVideo != null) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => FormDetails2(
-                            file: selectedVideo,
-                          ))));
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FormDetails2(
+                        file: selectedVideo,
+                      ),
+                    ),
+                  );
                 }
               },
             ),
@@ -44,10 +48,14 @@ class GridViewExample extends StatelessWidget {
               function: () async {
                 final selectedImage = await _getImage();
                 if (selectedImage != null) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => FormDetails(
-                            file: selectedImage,
-                          ))));
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FormDetails(
+                        file: selectedImage,
+                      ),
+                    ),
+                  );
                 }
               },
             ),
@@ -56,8 +64,8 @@ class GridViewExample extends StatelessWidget {
                 text: 'add sound',
                 icon: Icons.volume_up,
                 function: () async {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => AddSound())));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => AddSound()));
                 }),
 
             GridItem(

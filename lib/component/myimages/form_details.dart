@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/models/form_model.dart';
+import 'package:namer_app/myapp/addadds.dart';
 
 class FormDetails extends StatefulWidget {
   final File file;
@@ -23,6 +24,22 @@ class _FormDetailsState extends State<FormDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            if (!_isUploading) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Addadds()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('You didn\'t upload the image'),
+                ),
+              );
+            }
+          },
+        ),
         title: Row(
           children: [
             CircleAvatar(
@@ -35,7 +52,7 @@ class _FormDetailsState extends State<FormDetails> {
                 'Configuration form',
                 style: TextStyle(color: Colors.white),
               ),
-            )
+            ),
           ],
         ),
         backgroundColor: Colors.deepPurple[400],

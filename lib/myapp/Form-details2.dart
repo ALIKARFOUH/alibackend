@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/models/video_model.dart';
+import 'package:namer_app/myapp/addadds.dart';
 import 'package:video_player/video_player.dart';
 
 class FormDetails2 extends StatefulWidget {
@@ -42,6 +43,37 @@ class _FormDetails2State extends State<FormDetails2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            if (!_isUploading) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Addadds()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('You didn\'t upload the vedio'),
+                ),
+              );
+            }
+          },
+        ),
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage('lib/images/datadoit_logo.jpg'),
+              radius: 20,
+            ),
+            SizedBox(width: 30),
+            Center(
+              child: Text(
+                'Configuration form',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
         backgroundColor: Colors.deepPurple[400],
       ),
       body: SingleChildScrollView(
@@ -180,7 +212,7 @@ class _FormDetails2State extends State<FormDetails2> {
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Color.fromARGB(255, 246, 148, 62),
                   ),
-                ), // insert login button
+                ),
                 child: _isUploading
                     ? SizedBox(
                         width: 24.0,

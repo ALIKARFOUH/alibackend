@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/myapp/homepage.dart';
-import 'package:namer_app/myapp/login.dart';
+import 'package:namer_app/myapp/auth/login.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
